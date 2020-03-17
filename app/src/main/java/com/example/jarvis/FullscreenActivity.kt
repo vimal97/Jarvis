@@ -61,8 +61,11 @@ class FullscreenActivity : AppCompatActivity() {
 
         //set the splash screen timeout
         Handler().postDelayed({
-           //Start the new Activity..
-            //mediaPlayer = MediaPlayer.create(applicationContext,)
+            //Start the new Activity..
+            mediaPlayer = MediaPlayer.create(applicationContext,R.raw.login)
+            mediaPlayer.start()
+
+            //get to the login page
             startActivity(Intent(this@FullscreenActivity,Home::class.java))
             finish()
         },4000)
