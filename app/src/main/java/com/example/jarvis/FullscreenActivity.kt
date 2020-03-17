@@ -61,7 +61,7 @@ class FullscreenActivity : AppCompatActivity() {
 
         //set the splash screen timeout
         Handler().postDelayed({
-            //Start the new Activity..
+            //Play the login message
             mediaPlayer = MediaPlayer.create(applicationContext,R.raw.login)
             mediaPlayer.start()
 
