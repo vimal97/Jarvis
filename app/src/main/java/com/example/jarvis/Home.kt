@@ -1,50 +1,72 @@
 package com.example.jarvis
 
-import android.Manifest
-import android.os.Bundle
-import android.util.Log
-import android.hardware.biometrics.BiometricPrompt
+//import android.Manifest
+//import android.os.Bundle
+//import android.util.Log
+//import android.hardware.biometrics.BiometricPrompt
+//import android.os.Build
+//import androidx.annotation.RequiresApi
+//import androidx.appcompat.app.AppCompatActivity
+//import android.app.KeyguardManager
+//import android.content.Context
+//import android.content.Intent
+//import android.content.pm.PackageManager
+//import android.hardware.fingerprint.FingerprintManager
+//import android.security.keystore.KeyProperties
+//import android.widget.Toast
+//import androidx.core.app.ActivityCompat
+//import java.security.KeyStore
+//import java.security.NoSuchAlgorithmException
+//import java.security.NoSuchProviderException
+//import javax.crypto.KeyGenerator
+//import android.security.keystore.KeyGenParameterSpec
+//import java.security.cert.CertificateException
+//import java.security.InvalidAlgorithmParameterException
+//import java.io.IOException
+//import android.security.keystore.KeyPermanentlyInvalidatedException
+//import java.security.InvalidKeyException
+//import java.security.KeyStoreException
+//import java.security.UnrecoverableKeyException
+//import javax.crypto.NoSuchPaddingException
+//import javax.crypto.SecretKey
+//import javax.crypto.Cipher
+//import android.os.CancellationSignal
+
+//import android.R
+
+import android.accessibilityservice.GestureDescription
+import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
+import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import android.app.KeyguardManager
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.hardware.fingerprint.FingerprintManager
-import android.security.keystore.KeyProperties
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import java.security.KeyStore
-import java.security.NoSuchAlgorithmException
-import java.security.NoSuchProviderException
-import javax.crypto.KeyGenerator
-import android.security.keystore.KeyGenParameterSpec
-import java.security.cert.CertificateException
-import java.security.InvalidAlgorithmParameterException
-import java.io.IOException
-import android.security.keystore.KeyPermanentlyInvalidatedException
-import java.security.InvalidKeyException
-import java.security.KeyStoreException
-import java.security.UnrecoverableKeyException
-import javax.crypto.NoSuchPaddingException
-import javax.crypto.SecretKey
-import javax.crypto.Cipher
-import android.os.CancellationSignal
+import androidx.biometric.BiometricPrompt
+import androidx.biometric.BiometricPrompt.PromptInfo
+import androidx.fragment.app.FragmentActivity
+import java.util.*
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 
 class Home : AppCompatActivity() {
 
-    private var fingerprintManager: FingerprintManager? = null
-    private var keyguardManager: KeyguardManager? = null
-    private var keyStore: KeyStore? = null
-    private var keyGenerator: KeyGenerator? = null
-    private val KEY_NAME = "example_key"
-    private var cipher: Cipher? = null
-    private var cryptoObject: FingerprintManager.CryptoObject? = null
+//    private var fingerprintManager: FingerprintManager? = null
+//    private var keyguardManager: KeyguardManager? = null
+//    private var keyStore: KeyStore? = null
+//    private var keyGenerator: KeyGenerator? = null
+//    private val KEY_NAME = "example_key"
+//    private var cipher: Cipher? = null
+//    private var cryptoObject: FingerprintManager.CryptoObject? = null
+
+    var executor: Executor =
+        Executors.newSingleThreadExecutor()
+    val activity: FragmentActivity = this
+    private lateinit var mediaPlayer: MediaPlayer
 
 
-    @RequiresApi(Build.VERSION_CODES.P)
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,132 +75,81 @@ class Home : AppCompatActivity() {
             this.supportActionBar!!.hide()
         } catch (e: NullPointerException) {
         }
+        setContentView(R.layout.activity_home)
 
-        //Biometric scanning
-        if (getManagers()) {
-            generateKey()
-
-            if (cipherInit()) {
-                cipher?.let {
-                    cryptoObject = FingerprintManager.CryptoObject(it)
+        val biometricPrompt =
+            BiometricPrompt(activity, executor, object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+                    if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) { // user clicked negative button
+//Toast.makeText(activity, "Operation Cancelled By User!", Toast.LENGTH_SHORT).show();
+                    } else { //Toast.makeText(activity, "Unknown Error!", Toast.LENGTH_SHORT).show();
+// Called when an unrecoverable error has been encountered and the operation is complete.
+                    }
                 }
-                val helper = FingerprintHandler(this)
 
-                if (fingerprintManager != null && cryptoObject != null) {
-                    helper.startAuth(fingerprintManager!!, cryptoObject!!)
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    speakWishMessage(true)
+                    startActivity(Intent(this@Home, dashboard::class.java))
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    //Called when a biometric is valid but not recognized.
+                    speakWishMessage(false)
+                }
+            })
+
+        val promptInfo = PromptInfo.Builder()
+            .setTitle("Let me first verify its you")
+            .setSubtitle("Swipe your finger across the sensor")
+            .setNegativeButtonText("Cancel")
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
+    }
+
+    private fun speakWishMessage(value: Boolean){
+        if(value){
+            //play the success tone
+            //check for the particular wish
+            val c: Calendar = Calendar.getInstance()
+
+            when (c.get(Calendar.HOUR_OF_DAY)) {
+                in 0..11 -> {
+                    //morning
+                    mediaPlayer = MediaPlayer.create(applicationContext,R.raw.morning_wish)
+                    mediaPlayer.start()
+                    return
+                }
+                in 12..15 -> {
+                    //afternoon
+                    mediaPlayer = MediaPlayer.create(applicationContext,R.raw.afternoon_wish)
+                    mediaPlayer.start()
+                    return
+                }
+                in 16..20 -> {
+                    //evening
+                    mediaPlayer = MediaPlayer.create(applicationContext,R.raw.evening_wish)
+                    mediaPlayer.start()
+                    return
+                }
+                in 21..23 -> {
+                    //night
+                    mediaPlayer = MediaPlayer.create(applicationContext,R.raw.night_wish)
+                    mediaPlayer.start()
+                    return
                 }
             }
         }
-
-        setContentView(R.layout.activity_home)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun generateKey() {
-        try {
-            keyStore = KeyStore.getInstance("AndroidKeyStore")
-        } catch (e: Exception) {
-            e.printStackTrace()
+        else{
+            //play the failed tone
+            mediaPlayer = MediaPlayer.create(applicationContext,R.raw.login_failure)
+            mediaPlayer.start()
         }
-        try {
-            keyGenerator = KeyGenerator.getInstance(
-                KeyProperties.KEY_ALGORITHM_AES,
-                "AndroidKeyStore")
-        } catch (e: NoSuchAlgorithmException) {
-            throw RuntimeException(
-                "Failed to get KeyGenerator instance", e)
-        } catch (e: NoSuchProviderException) {
-            throw RuntimeException("Failed to get KeyGenerator instance", e)
-        }
-
-        try {
-            keyStore?.load(null)
-            keyGenerator?.init(KeyGenParameterSpec.Builder(KEY_NAME,
-                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-                .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-                .setUserAuthenticationRequired(true)
-                .setEncryptionPaddings(
-                    KeyProperties.ENCRYPTION_PADDING_PKCS7)
-                .build())
-            keyGenerator?.generateKey()
-        } catch (e: NoSuchAlgorithmException) {
-            throw RuntimeException(e)
-        } catch (e: InvalidAlgorithmParameterException) {
-            throw RuntimeException(e)
-        } catch (e: CertificateException) {
-            throw RuntimeException(e)
-        } catch (e: IOException) {
-            throw RuntimeException(e)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun cipherInit(): Boolean {
-        try {
-            cipher = Cipher.getInstance(
-                KeyProperties.KEY_ALGORITHM_AES + "/"
-                        + KeyProperties.BLOCK_MODE_CBC + "/"
-                        + KeyProperties.ENCRYPTION_PADDING_PKCS7)
-        } catch (e: NoSuchAlgorithmException) {
-            throw RuntimeException("Failed to get Cipher", e)
-        } catch (e: NoSuchPaddingException) {
-            throw RuntimeException("Failed to get Cipher", e)
-        }
-
-        try {
-            keyStore?.load(null)
-            val key = keyStore?.getKey(KEY_NAME, null) as SecretKey
-            cipher?.init(Cipher.ENCRYPT_MODE, key)
-            return true
-        }
-//        catch (e: KeyPermanentlyInvalidatedException) {
-//            return false
-//        }
-        catch (e: KeyStoreException) {
-            throw RuntimeException("Failed to init Cipher", e)
-        } catch (e: CertificateException) {
-            throw RuntimeException("Failed to init Cipher", e)
-        } catch (e: UnrecoverableKeyException) {
-            throw RuntimeException("Failed to init Cipher", e)
-        } catch (e: IOException) {
-            throw RuntimeException("Failed to init Cipher", e)
-        } catch (e: NoSuchAlgorithmException) {
-            throw RuntimeException("Failed to init Cipher", e)
-        } catch (e: InvalidKeyException) {
-            throw RuntimeException("Failed to init Cipher", e)
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun getManagers(): Boolean {
-        keyguardManager = getSystemService(Context.KEYGUARD_SERVICE)
-                as KeyguardManager
-        fingerprintManager = getSystemService(Context.FINGERPRINT_SERVICE)
-                as FingerprintManager
-        if (keyguardManager?.isKeyguardSecure == false) {
-
-            Toast.makeText(this,
-                "Lock screen security not enabled in Settings",
-                Toast.LENGTH_LONG).show()
-            return false
-        }
-
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.USE_FINGERPRINT) !=
-            PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this,
-                "Fingerprint authentication permission not enabled",
-                Toast.LENGTH_LONG).show()
-
-            return false
-        }
-
-        if (fingerprintManager?.hasEnrolledFingerprints() == false) {
-            Toast.makeText(this,
-                "Register at least one fingerprint in Settings",
-                Toast.LENGTH_LONG).show()
-            return false
-        }
-        return true
     }
 }

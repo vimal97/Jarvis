@@ -73,32 +73,24 @@ class FingerprintHandler(private val appContext: Context) : FingerprintManager.A
                     //morning
                     mediaPlayer = MediaPlayer.create(appContext,R.raw.morning_wish)
                     mediaPlayer.start()
-                    val success = Home()
-                    success.success()
                     return
                 }
                 in 12..15 -> {
                     //afternoon
                     mediaPlayer = MediaPlayer.create(appContext,R.raw.afternoon_wish)
                     mediaPlayer.start()
-                    val success = Home()
-                    success.success()
                     return
                 }
                 in 16..20 -> {
                     //evening
                     mediaPlayer = MediaPlayer.create(appContext,R.raw.evening_wish)
                     mediaPlayer.start()
-                    val success = Home()
-                    success.success()
                     return
                 }
                 in 21..23 -> {
                     //night
                     mediaPlayer = MediaPlayer.create(appContext,R.raw.night_wish)
                     mediaPlayer.start()
-                    val success = Home()
-                    success.success()
                     return
                 }
             }
