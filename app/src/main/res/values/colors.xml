@@ -6,4 +6,5 @@
     <color name="black_overlay">#66000000</color>
     <color name="headline">#BBBBBB</color>
     <color name="nav_header_background">#292827</color>
+    <color name="cardview_background">#F783837F</color>
 </resources>
