@@ -17,9 +17,9 @@
     </fragment>
     <fragment
         android:id="@+id/nav_home_second"
-        android:name="com.example.jarvis.ui.home.HomeSecondFragment"
+        android:name="com.example.jarvis.ui.home.HomeFragment"
         android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
             app:destination="@id/nav_home" />
@@ -30,14 +30,26 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.jarvis.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_expense"
+        android:name="com.example.jarvis.ui.expenses.ExpensesFragment"
+        android:label="@string/menu_expenses"
+        tools:layout="@layout/fragment_expenses" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.jarvis.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_credits"
+        android:name="com.example.jarvis.ui.credits.CreditFragment"
+        android:label="@string/menu_credits"
+        tools:layout="@layout/fragment_credits" />
+
+    <fragment
+        android:id="@+id/nav_debits"
+        android:name="com.example.jarvis.ui.debits.DebitFragment"
+        android:label="@string/menu_debits"
+        tools:layout="@layout/fragment_debits"/>
+
+    <fragment
+        android:id="@+id/nav_analysis"
+        android:name="com.example.jarvis.ui.analysis.AnalysisFragment"
+        android:label="@string/menu_analysis"
+        tools:layout="@layout/fragment_analysis"/>
 </navigation>

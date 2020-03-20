@@ -11,10 +11,13 @@
     <string name="nav_header_email">vimal974ever@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="logout">Logout</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_expenses">My Expenses</string>
+    <string name="menu_debits">Debits owed</string>
+    <string name="menu_credits">Credits owed</string>
+    <string name="menu_analysis">Analysis Report</string>
 
     <string name="home_second">Home Second</string>
 </resources>

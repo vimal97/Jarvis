@@ -1,4 +1,6 @@
-package com.example.jarvis.ui.gallery
+@file:Suppress("DEPRECATION")
+
+package com.example.jarvis.ui.credits
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +12,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.jarvis.R
 
-class GalleryFragment : Fragment() {
+class CreditFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var creditViewModel: CreditViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-            ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        galleryViewModel.text.observe(viewLifecycleOwner, Observer {
+        creditViewModel =
+            ViewModelProviders.of(this).get(CreditViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_credits, container, false)
+        val textView: TextView = root.findViewById(R.id.text_credits)
+        creditViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
