@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/nav_home_second"
         android:name="com.example.jarvis.ui.home.HomeFragment"
-        android:label="@string/home_second"
+        android:label="Home Second"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
@@ -52,4 +52,22 @@
         android:name="com.example.jarvis.ui.analysis.AnalysisFragment"
         android:label="@string/menu_analysis"
         tools:layout="@layout/fragment_analysis"/>
+
+    <fragment
+        android:id="@+id/nav_daily_reminders"
+        android:name="com.example.jarvis.ui.daily_reminders.DailyRemindersFragment"
+        android:label="@string/menu_daily_reminders"
+        tools:layout="@layout/fragment_daily_reminder"/>
+
+    <fragment
+        android:id="@+id/nav_normal_reminders"
+        android:name="com.example.jarvis.ui.normal_reminders.NormalRemindersFragment"
+        android:label="@string/menu_normal_reminders"
+        tools:layout="@layout/fragment_normal_reminders"/>
+
+    <fragment
+        android:id="@+id/nav_view_reminders"
+        android:name="com.example.jarvis.ui.vew_reminders.ViewRemindersFragment"
+        android:label="@string/menu_view_reminders"
+        tools:layout="@layout/fragment_view_reminders"/>
 </navigation>

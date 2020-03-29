@@ -19,5 +19,7 @@
     <string name="menu_credits">Credits owed</string>
     <string name="menu_analysis">Analysis Report</string>
 
-    <string name="home_second">Home Second</string>
+    <string name="menu_daily_reminders">Add daily reminders</string>
+    <string name="menu_normal_reminders">Add normal reminders</string>
+    <string name="menu_view_reminders">All reminders</string>
 </resources>

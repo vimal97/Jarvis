@@ -3,26 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/nav_home"
-            android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_expense"
-            android:icon="@drawable/nav_expenses"
-            android:title="@string/menu_expenses" />
-        <item
-            android:id="@+id/nav_credits"
-            android:icon="@drawable/nav_credit"
-            android:title="@string/menu_credits" />
-        <item
-            android:id="@+id/nav_debits"
-            android:icon="@drawable/nav_debit"
-            android:title="@string/menu_debits" />
-        <item
-            android:id="@+id/nav_analysis"
-            android:icon="@drawable/nav_analysis"
-            android:title="@string/menu_analysis" />
-    </group>
+    <item android:title="Cash Exchanges">
+        <menu>
+            <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/nav_home"
+                android:title="@string/menu_home" />
+            <item
+                android:id="@+id/nav_expense"
+                android:icon="@drawable/nav_expenses"
+                android:title="@string/menu_expenses" />
+            <item
+                android:id="@+id/nav_credits"
+                android:icon="@drawable/nav_credit"
+                android:title="@string/menu_credits" />
+            <item
+                android:id="@+id/nav_debits"
+                android:icon="@drawable/nav_debit"
+                android:title="@string/menu_debits" />
+            <item
+                android:id="@+id/nav_analysis"
+                android:icon="@drawable/nav_analysis"
+                android:title="@string/menu_analysis" />
+        </menu>
+    </item>
+
+    <item android:title="Reminders">
+        <menu>
+            <item
+                android:id="@+id/nav_daily_reminders"
+                android:title="Add Daily Reminders"
+                android:icon="@drawable/add_reminder"></item>
+            <item
+                android:id="@+id/nav_normal_reminders"
+                android:icon="@drawable/add_reminder_1"
+                android:title="Add Normal Reminders"
+                ></item>
+            <item
+                android:id="@+id/nav_view_reminders"
+                android:icon="@drawable/checklist"
+                android:title="View all Reminders"></item>
+        </menu>
+    </item>
 </menu>
