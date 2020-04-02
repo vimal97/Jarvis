@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/nav_fragment_background"
     tools:context=".dashboard">
 
     <ScrollView
@@ -34,7 +35,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/nav_fragment_background"
+                    >
 
 
                     <ImageView
@@ -99,7 +102,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/nav_fragment_background"
+                    >
 
 
                     <ImageView
@@ -164,7 +169,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/nav_fragment_background"
+                    >
 
 
                     <ImageView
@@ -215,7 +222,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_2"
+                android:id="@+id/card_4"
                 android:layout_width="350dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="5dp"
@@ -229,7 +236,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/nav_fragment_background"
+                    >
 
 
                     <ImageView
@@ -280,7 +289,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_2"
+                android:id="@+id/card_5"
                 android:layout_width="350dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="5dp"
@@ -294,7 +303,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/nav_fragment_background"
+                    >
 
 
                     <ImageView
