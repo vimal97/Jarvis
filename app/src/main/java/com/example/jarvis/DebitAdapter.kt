@@ -21,8 +21,8 @@ class DebitAdapter(private val debitList: List<DebitData>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: DebitViewHolder, position: Int) {
         val currentItem = debitList[position]
         holder.name.text = currentItem.name
-        holder.amount.text = currentItem.amount.toString()
-        holder.dueDate.text = currentItem.return_date
+        holder.amount.text = "\u20B9 " + currentItem.amount.toString()
+        holder.dueDate.text = "Due date : " + currentItem.return_date
 
     }
 

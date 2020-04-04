@@ -20,14 +20,57 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <include layout="@layout/content_dashboard" />
 
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:backgroundTint="@color/floating_button"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/plus"/>
+        android:src="@drawable/plus"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/add_credit_menu"
+        android:layout_width="wrap_content"
+        android:paddingTop="20dp"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="90dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Credit"
+            android:layout_gravity="right"
+            android:textColor="@color/floating_menu"
+            android:textStyle="bold|italic"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            ></TextView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom|right"
+            android:backgroundTint="@color/floating_button_secondary"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/plus_1"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

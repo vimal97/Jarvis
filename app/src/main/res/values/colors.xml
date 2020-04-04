@@ -9,5 +9,8 @@
     <color name="headline">#BBBBBB</color>
     <color name="nav_header_background">#292827</color>
     <color name="cardview_background">#F783837F</color>
+    <color name="floating_button">#D759E859</color>
+    <color name="floating_button_secondary">#CBFFE122</color>
     <color name="cardViewHeadline">#FDFCFC</color>
+    <color name="floating_menu">@android:color/white</color>
 </resources>
