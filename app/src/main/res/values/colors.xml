@@ -11,6 +11,7 @@
     <color name="cardview_background">#F783837F</color>
     <color name="floating_button">#D759E859</color>
     <color name="floating_button_secondary">#CBFFE122</color>
-    <color name="cardViewHeadline">#FDFCFC</color>
-    <color name="floating_menu">@android:color/white</color>
+    <color name="cardViewHeadline">#D8D8D8</color>
+    <color name="floating_menu">#A50808</color>
+    <color name="floating_close">#DFE31717</color>
 </resources>

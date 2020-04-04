@@ -2,7 +2,10 @@ package com.example.jarvis
 
 //import android.R
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.View
@@ -10,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,7 +28,12 @@ import org.json.JSONObject
 @Suppress("DEPRECATION")
 class dashboard : AppCompatActivity() {
 
+    private lateinit var fab: FloatingActionButton
     private lateinit var fab1: LinearLayout
+    private lateinit var fab2: LinearLayout
+    private lateinit var fab3: LinearLayout
+    private lateinit var fab4: LinearLayout
+    private lateinit var fab5: LinearLayout
     private var isFABOpen: Boolean = false
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -33,11 +42,15 @@ class dashboard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         fab1 = findViewById<LinearLayout>(R.id.add_credit_menu)
+        fab2 = findViewById<LinearLayout>(R.id.add_credit_menu_1)
+        fab3 = findViewById<LinearLayout>(R.id.add_credit_menu_2)
+        fab4 = findViewById<LinearLayout>(R.id.add_credit_menu_3)
+        fab5 = findViewById<LinearLayout>(R.id.add_credit_menu_4)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
 
-        val fab: FloatingActionButton = findViewById(R.id.fab_main)
+        fab = findViewById<FloatingActionButton>(R.id.fab_main)
         fab.setOnClickListener { view ->
             if (!isFABOpen) {
                 showFABMenu()
@@ -67,14 +80,37 @@ class dashboard : AppCompatActivity() {
     //functions to handle floating button actions
     private fun showFABMenu(): Unit {
         isFABOpen = true
+        //change button color to red
+        fab.setImageResource(R.drawable.close)
         fab1.visibility = View.VISIBLE
+        fab2.visibility = View.VISIBLE
+        fab3.visibility = View.VISIBLE
+        fab4.visibility = View.VISIBLE
+        fab5.visibility = View.VISIBLE
         fab1.animate().translationY((-90).toFloat())
+        fab2.animate().translationY((-135).toFloat())
+        fab3.animate().translationY((-180).toFloat())
+        fab4.animate().translationY((-225).toFloat())
+        fab5.animate().translationY((-270).toFloat())
     }
 
     private fun closeFABMenu() {
         isFABOpen = false
-        fab1.animate().translationY(0F)
-        fab1.visibility = View.GONE
+        //change button color to normal
+        fab.setImageResource(R.drawable.plus)
+        fab5.animate().translationY(270F)
+        fab4.animate().translationY(225F)
+        fab3.animate().translationY(180F)
+        fab2.animate().translationY(135F)
+        fab1.animate().translationY(90F)
+
+        Handler().postDelayed({
+            fab5.visibility = View.GONE
+            fab4.visibility = View.GONE
+            fab3.visibility = View.GONE
+            fab2.visibility = View.GONE
+            fab1.visibility = View.GONE
+        }, 200)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
