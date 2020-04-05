@@ -12,6 +12,11 @@
     <color name="floating_button">#D759E859</color>
     <color name="floating_button_secondary">#CBFFE122</color>
     <color name="cardViewHeadline">#D8D8D8</color>
-    <color name="floating_menu">#A50808</color>
+    <color name="expense_card_headline_1">#FFFFFF</color>
+    <color name="expense_card_headline_2">#D8D8D8</color>
+    <color name="expense_card_headline_3">#99E91E63</color>
+    <color name="expense_card_headline_4">#3C58F6</color>
+    <color name="expense_card_headline_5">#FDFCFC</color>
+    <color name="floating_menu">#FAF6F6</color>
     <color name="floating_close">#DFE31717</color>
 </resources>
