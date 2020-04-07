@@ -2,6 +2,7 @@ package com.example.jarvis
 
 //import android.R
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -41,11 +42,11 @@ class dashboard : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
-        fab1 = findViewById<LinearLayout>(R.id.add_credit_menu)
-        fab2 = findViewById<LinearLayout>(R.id.add_credit_menu_1)
-        fab3 = findViewById<LinearLayout>(R.id.add_credit_menu_2)
-        fab4 = findViewById<LinearLayout>(R.id.add_credit_menu_3)
-        fab5 = findViewById<LinearLayout>(R.id.add_credit_menu_4)
+        fab1 = findViewById<LinearLayout>(R.id.add_credit_menu) //add expense
+        fab2 = findViewById<LinearLayout>(R.id.add_credit_menu_1) //add credit
+        fab3 = findViewById<LinearLayout>(R.id.add_credit_menu_2) //add debit
+        fab4 = findViewById<LinearLayout>(R.id.add_credit_menu_3) //add normal reminder
+        fab5 = findViewById<LinearLayout>(R.id.add_credit_menu_4) //add daily reminder
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -59,6 +60,26 @@ class dashboard : AppCompatActivity() {
             }
             //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
             //                .setAction("Action", null).show()
+        }
+        fab1.setOnClickListener { view ->
+            //redirecting to add expense activity
+            startActivity(Intent(this@dashboard, AddExpenseActivity::class.java))
+        }
+        fab2.setOnClickListener { view ->
+            //redirecting to add credit activity
+            startActivity(Intent(this@dashboard, AddCreditActivity::class.java))
+        }
+        fab3.setOnClickListener { view ->
+            //redirecting to add debit activity
+            startActivity(Intent(this@dashboard, AddDebitActivity::class.java))
+        }
+        fab4.setOnClickListener { view ->
+            //redirecting to add normal reminder activity
+            startActivity(Intent(this@dashboard, AddNReminderActivity::class.java))
+        }
+        fab5.setOnClickListener { view ->
+            //redirecting to add daily reminder activity
+            startActivity(Intent(this@dashboard, AddDReminderActivity::class.java))
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
