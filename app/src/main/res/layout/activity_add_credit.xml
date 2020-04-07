@@ -7,8 +7,8 @@
     tools:context=".AddCreditActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -17,38 +17,73 @@
 
         <EditText
             android:id="@+id/credit_name"
-            android:layout_width="287dp"
-            android:layout_height="43dp"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
             android:ems="10"
             android:hint="To"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText4"
-            android:layout_width="287dp"
+            android:id="@+id/credit_reason"
             android:layout_height="wrap_content"
+            android:layout_width="325dp"
             android:layout_marginTop="36dp"
             android:ems="10"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:hint="Reson for borrowing"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText6" />
+            app:layout_constraintTop_toBottomOf="@+id/credit_amount" />
 
         <EditText
-            android:id="@+id/editText6"
-            android:layout_width="287dp"
+            android:id="@+id/credit_amount"
+            android:layout_width="325dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:ems="10"
             android:hint="Amount in Rupees"
             android:inputType="number"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/credit_name" />
+
+        <Button
+            android:id="@+id/choose_date"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:background="@color/date_buttons"
+            android:text="Choose Expected Return Date"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/credit_reason" />
+
+        <Button
+            android:id="@+id/add_credit_submit"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:background="@color/submit_buttons"
+            android:text="Add Credit"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.937"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/choose_date"
+            app:layout_constraintVertical_bias="0.209" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
