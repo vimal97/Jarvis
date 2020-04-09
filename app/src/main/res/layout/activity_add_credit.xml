@@ -58,14 +58,15 @@
             app:layout_constraintTop_toBottomOf="@+id/credit_name" />
 
         <Button
-            android:id="@+id/choose_date"
+            android:id="@+id/choose_date_credit"
             android:layout_width="325dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:background="@color/date_buttons"
+            android:background="@color/date_buttons_credit"
             android:text="Choose Expected Return Date"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
+            android:onClick="setDate"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -83,7 +84,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.937"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/choose_date"
+            app:layout_constraintTop_toBottomOf="@+id/choose_date_credit"
             app:layout_constraintVertical_bias="0.209" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

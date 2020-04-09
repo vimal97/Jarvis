@@ -19,6 +19,7 @@
     <color name="expense_card_headline_5">#FDFCFC</color>
     <color name="floating_menu">#FAF6F6</color>
     <color name="floating_close">#DFE31717</color>
-    <color name="date_buttons">#6283F6</color>
+    <color name="date_buttons_credit">#6283F6</color>
+    <color name="date_buttons_debit">#F65562</color>
     <color name="submit_buttons">#52EA1A</color>
 </resources>

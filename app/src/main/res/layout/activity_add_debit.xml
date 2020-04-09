@@ -4,24 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddDebitActivity">
+    tools:context=".AddCreditActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/debit_name"
+            android:layout_width="325dp"
             android:layout_height="wrap_content"
-            android:text="Add Debit Activity"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="56dp"
+            android:ems="10"
+            android:hint="To"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/debit_reason"
+            android:layout_height="wrap_content"
+            android:layout_width="325dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:hint="Reson for borrowing"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/debit_amount" />
+
+        <EditText
+            android:id="@+id/debit_amount"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="Amount in Rupees"
+            android:inputType="number"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/debit_name" />
+
+        <Button
+            android:id="@+id/choose_date_debit"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:background="@color/date_buttons_debit"
+            android:text="Choose Expected Return Date"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:onClick="setDate"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/debit_reason" />
+
+        <Button
+            android:id="@+id/add_debit_submit"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:background="@color/submit_buttons"
+            android:text="Add Credit"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.937"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/choose_date_debit"
+            app:layout_constraintVertical_bias="0.209" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
