@@ -57,14 +57,14 @@
             android:textSize="22.5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.879"
+            app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/debit_value_1"
-            android:layout_width="42dp"
+            android:layout_width="wrap_content"
             android:layout_height="26dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"

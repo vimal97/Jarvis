@@ -2,12 +2,20 @@ package com.example.jarvis
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ComponentCallbacks2
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
 import java.util.*
+import com.example.jarvis.SharedPreference
+import kotlin.collections.ArrayList
+
 
 class AddDebitActivity : AppCompatActivity() {
 
@@ -17,6 +25,9 @@ class AddDebitActivity : AppCompatActivity() {
     private var year: Int = 0
     private var month: Int = 0
     private var day: Int = 0
+    private lateinit var expectedDate: String
+    private lateinit var today: String
+    val sharedPreference:SharedPreference=SharedPreference(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +41,8 @@ class AddDebitActivity : AppCompatActivity() {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+        today = "$day/$month/$year"
+        sharedPreference.removeData("DebitList")
     }
 
     override fun onCreateDialog(id: Int): Dialog? { // TODO Auto-generated method stub
@@ -54,7 +67,31 @@ class AddDebitActivity : AppCompatActivity() {
         showDialog(999)
     }
 
+    public fun addDebit(view: View){
+        var amount = findViewById<EditText>(R.id.debit_amount).text.toString()
+        var name = findViewById<EditText>(R.id.debit_name).text.toString()
+        var reason = findViewById<EditText>(R.id.debit_reason).text.toString()
+        var debitData = DebitData(name,amount,today,expectedDate,reason)
+
+        //read json and append new debit data
+        var debitList = sharedPreference.getDebitData("DebitList")
+        var gson = Gson()
+        if(debitList == null){
+            var debitListArray = "".split("|").toList()
+            debitListArray += gson.toJson(debitData)
+            sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
+            Toast.makeText(applicationContext,debitListArray.joinToString("|"),Toast.LENGTH_LONG).show()
+        }
+        else{
+            var debitListArray = debitList.split("|").toList()
+            debitListArray += gson.toJson(debitData)
+            sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
+            Toast.makeText(applicationContext,debitListArray.joinToString("|"),Toast.LENGTH_LONG).show()
+        }
+    }
+
     private fun showDate(year: Int, month: Int, day: Int) {
-        dateView.text = StringBuilder().append("Chosen Date : ").append(day).append("/").append(month).append("/").append(year)
+        expectedDate = StringBuilder().append(day).append("/").append(month).append("/").append(year).toString()
+        dateView.text = StringBuilder().append("Chosen Date : ").append(expectedDate)
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddCreditActivity">
+    tools:context=".AddDebitActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -78,7 +78,8 @@
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:background="@color/submit_buttons"
-            android:text="Add Credit"
+            android:text="Add Debit"
+            android:onClick="addDebit"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

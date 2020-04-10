@@ -21,8 +21,8 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: CreditViewHolder, position: Int) {
         val currentItem = creditList[position]
-        holder.name.text = currentItem.name.toUpperCase()
-        holder.amount.text = "\u20B9 " + currentItem.amount.toString()
+        holder.name.text = currentItem.name
+        holder.amount.text = "\u20B9 " + currentItem.amount
         holder.dueDate.text = "Due date : " + currentItem.return_date
 
     }
