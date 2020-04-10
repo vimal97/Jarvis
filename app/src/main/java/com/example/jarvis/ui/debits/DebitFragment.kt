@@ -37,13 +37,11 @@ class DebitFragment : Fragment() {
         var gson: Gson = Gson()
         sharedPreference = this.context?.let { SharedPreference(it) }!!
         sharedPreference?.getDebitData("DebitList")?.split("|")?.toList()
-//        Toast.makeText(this.context,sharedPreference?.getDebitData("DebitList")?.split("|")?.toList().toString(),Toast.LENGTH_SHORT).show()
         sharedPreference?.getDebitData("DebitList")?.split("|")?.toList()?.forEach { x ->
             if(x == "") {
                 // do nothing
             }
             else {
-                Toast.makeText(this.context, x, Toast.LENGTH_LONG).show()
                 debitList += gson.fromJson(x,DebitData::class.java)
             }
         }

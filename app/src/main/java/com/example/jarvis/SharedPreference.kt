@@ -9,6 +9,18 @@ import java.util.ArrayList
 class SharedPreference(val context: Context) {
     private val prefsName = "Jarvis"
 
+    fun pushCreditData(KEY_NAME: String,value: String){
+        var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis", MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString(KEY_NAME, value)
+        editor.commit()
+    }
+
+    fun getCreditData(KEY_NAME: String): String? {
+        var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis",MODE_PRIVATE)
+        return sharedPref.getString(KEY_NAME, null)
+    }
+
     fun pushDebitData(KEY_NAME: String, value: String) {
         var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis", MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPref.edit()
@@ -17,7 +29,6 @@ class SharedPreference(val context: Context) {
     }
 
     fun getDebitData(KEY_NAME: String): String? {
-        Log.e("vimaltext ", context.toString())
         var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis",MODE_PRIVATE)
         return sharedPref.getString(KEY_NAME, null)
     }

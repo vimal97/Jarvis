@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.jarvis.CreditAdapter
 import com.example.jarvis.CreditData
 import com.example.jarvis.R
+import com.example.jarvis.SharedPreference
+import com.google.gson.Gson
 
 class CreditFragment : Fragment() {
 
     private lateinit var creditViewModel: CreditViewModel
+    private lateinit var sharedPreference: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,12 +31,16 @@ class CreditFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_credits, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_viewer_credits)
         val creditList = ArrayList<CreditData>()
-        var item = CreditData("TestName",1000,"10/10/2020","20/10/2020","Nothing")
-        creditList += item
-        item = CreditData("TestName",1000,"10/10/2020","20/10/2020","Nothing")
-        creditList += item
-        item = CreditData("TestName",1000,"10/10/2020","20/10/2020","Nothing")
-        creditList += item
+        var gson = Gson()
+        sharedPreference = this.context?.let { SharedPreference(it) }!!
+        sharedPreference.getCreditData("CreditList")?.split("|")?.toList()?.forEach{
+                x ->
+            if(x == ""){
+                //do nothing
+            } else{
+                creditList += gson.fromJson(x,CreditData::class.java)
+            }
+        }
         recyclerView.adapter = CreditAdapter(creditList)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.setHasFixedSize(true)

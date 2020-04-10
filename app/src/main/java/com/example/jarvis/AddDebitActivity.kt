@@ -80,13 +80,11 @@ class AddDebitActivity : AppCompatActivity() {
             var debitListArray = "".split("|").toList()
             debitListArray += gson.toJson(debitData)
             sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
-            Toast.makeText(applicationContext,debitListArray.joinToString("|"),Toast.LENGTH_LONG).show()
         }
         else{
             var debitListArray = debitList.split("|").toList()
             debitListArray += gson.toJson(debitData)
             sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
-            Toast.makeText(applicationContext,debitListArray.joinToString("|"),Toast.LENGTH_LONG).show()
         }
     }
 

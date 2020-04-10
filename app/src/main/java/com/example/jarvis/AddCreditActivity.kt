@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 import com.example.jarvis.SharedPreference
+import com.google.gson.Gson
 
 
 @Suppress("DEPRECATION")
@@ -23,6 +25,8 @@ class AddCreditActivity : AppCompatActivity() {
     private var month: Int = 0
     private var day: Int = 0
     private var sharedPreference: SharedPreference = SharedPreference(this)
+    private lateinit var today: String
+    private lateinit var expectedDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +40,8 @@ class AddCreditActivity : AppCompatActivity() {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        Toast.makeText(applicationContext,sharedPreference.getDebitData("DebitList").toString(), Toast.LENGTH_LONG).show()
+        today = "$day/$month/$year"
+        sharedPreference.removeData("CreditList")
     }
 
     override fun onCreateDialog(id: Int): Dialog? { // TODO Auto-generated method stub
@@ -62,7 +67,28 @@ class AddCreditActivity : AppCompatActivity() {
     }
 
     private fun showDate(year: Int, month: Int, day: Int) {
-        dateView.text = StringBuilder().append("Chosen Date : ").append(day).append("/").append(month).append("/").append(year)
+        expectedDate = StringBuilder().append(day).append("/").append(month).append("/").append(year).toString()
+        dateView.text = StringBuilder().append("Chosen Date : ").append(expectedDate)
     }
 
+
+    fun addCredit(view: View) {
+        var amount = findViewById<EditText>(R.id.credit_amount).text.toString()
+        var name = findViewById<EditText>(R.id.credit_name).text.toString()
+        var reason = findViewById<EditText>(R.id.credit_reason).text.toString()
+        var creditData = CreditData(name,amount,today,expectedDate,reason)
+
+        var gson = Gson()
+        var creditList = sharedPreference.getDebitData("CreditList")
+        if(creditList == null){
+            var creditListArray = "".split("|").toList()
+            creditListArray += gson.toJson(creditData)
+            sharedPreference.pushCreditData("CreditList",creditListArray.joinToString("|"))
+        }
+        else{
+            var creditListArray = creditList.split("|").toList()
+            creditListArray += gson.toJson(creditData)
+            sharedPreference.pushCreditData("CreditList",creditListArray.joinToString("|"))
+        }
+    }
 }
