@@ -71,18 +71,21 @@ class AddDebitActivity : AppCompatActivity() {
         var amount = findViewById<EditText>(R.id.debit_amount).text.toString()
         var name = findViewById<EditText>(R.id.debit_name).text.toString()
         var reason = findViewById<EditText>(R.id.debit_reason).text.toString()
-        var debitData = DebitData(name,amount,today,expectedDate,reason)
 
         //read json and append new debit data
         var debitList = sharedPreference.getDebitData("DebitList")
         var gson = Gson()
         if(debitList == null){
             var debitListArray = "".split("|").toList()
+            var id = debitListArray.size + 1
+            var debitData = DebitData(id.toString(),name,amount,today,expectedDate,reason)
             debitListArray += gson.toJson(debitData)
             sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
         }
         else{
             var debitListArray = debitList.split("|").toList()
+            var id = debitListArray.size + 1
+            var debitData = DebitData(id.toString(),name,amount,today,expectedDate,reason)
             debitListArray += gson.toJson(debitData)
             sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
         }

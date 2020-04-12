@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.credit_container.view.*
 import kotlinx.android.synthetic.main.debit_container.view.*
@@ -24,12 +25,23 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
         holder.name.text = currentItem.name
         holder.amount.text = "\u20B9 " + currentItem.amount
         holder.dueDate.text = "Due date : " + currentItem.return_date
+        holder.id = currentItem.id
 
+        holder.itemView.setOnClickListener {
+            view ->
+
+            for ( i in creditList){
+                if(i.id == holder.id){
+                    Toast.makeText(view.context,i.name + " clicked",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     class CreditViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val name : TextView = itemView.credit_name_1
         val amount : TextView = itemView.credit_value_1
         val dueDate : TextView = itemView.credit_dueDate
+        var id: String = ""
     }
 }

@@ -76,17 +76,20 @@ class AddCreditActivity : AppCompatActivity() {
         var amount = findViewById<EditText>(R.id.credit_amount).text.toString()
         var name = findViewById<EditText>(R.id.credit_name).text.toString()
         var reason = findViewById<EditText>(R.id.credit_reason).text.toString()
-        var creditData = CreditData(name,amount,today,expectedDate,reason)
 
         var gson = Gson()
         var creditList = sharedPreference.getDebitData("CreditList")
         if(creditList == null){
             var creditListArray = "".split("|").toList()
+            var id: String = (creditListArray.size + 1).toString()
+            var creditData = CreditData(id, name,amount,today,expectedDate,reason)
             creditListArray += gson.toJson(creditData)
             sharedPreference.pushCreditData("CreditList",creditListArray.joinToString("|"))
         }
         else{
             var creditListArray = creditList.split("|").toList()
+            var id: String = (creditListArray.size + 1).toString()
+            var creditData = CreditData(id, name,amount,today,expectedDate,reason)
             creditListArray += gson.toJson(creditData)
             sharedPreference.pushCreditData("CreditList",creditListArray.joinToString("|"))
         }
