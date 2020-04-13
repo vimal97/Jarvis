@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/text_name_credit_main"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="To"
+        android:textSize="@dimen/popup_text"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/text_name_credit_value"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Value"
+        android:textSize="@dimen/popup_text"
+        app:layout_constraintLeft_toRightOf="@+id/text_name_credit_main"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_amount_credit"
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        android:text="Amount"
+        android:gravity="bottom|left"
+        android:textSize="@dimen/popup_text"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_name_credit_main" />
+
+    <EditText
+        android:id="@+id/text_amount_credit_value"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:hint="Enter an Amount"
+        android:textSize="@dimen/popup_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_amount_credit"
+        app:layout_constraintTop_toBottomOf="@+id/text_name_credit_value" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Borrow date"
+        android:textSize="@dimen/popup_text"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_amount_credit" />
+
+    <TextView
+        android:id="@+id/text_borrow_credit_value"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="BorrowDate"
+        android:textSize="@dimen/popup_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/text_amount_credit_value" />
+
+    <TextView
+        android:id="@+id/text_borrow"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:text="Return Date"
+        android:textStyle="bold"
+        android:textSize="@dimen/popup_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/text_return_credit_value"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Return Date"
+        android:textSize="@dimen/popup_text"
+        app:layout_constraintStart_toEndOf="@+id/text_borrow"
+        app:layout_constraintTop_toBottomOf="@+id/text_borrow_credit_value" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:text="Reason"
+        android:textStyle="bold"
+        android:textSize="@dimen/popup_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_borrow" />
+
+    <TextView
+        android:id="@+id/text_reason_credit_value"
+        android:layout_width="200dp"
+        android:layout_height="23dp"
+        android:text="Reason"
+        android:textSize="@dimen/popup_text"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/text_return_credit_value" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

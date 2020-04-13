@@ -7,6 +7,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.jarvis.ui.debits.DebitFragment
 import kotlinx.android.synthetic.main.debit_container.view.*
 
 class DebitAdapter(private val debitList: List<DebitData>) : RecyclerView.Adapter<DebitAdapter.DebitViewHolder>() {
@@ -31,7 +32,8 @@ class DebitAdapter(private val debitList: List<DebitData>) : RecyclerView.Adapte
             for ( i in debitList){
                 if(i.id == holder.id)
                 {
-                    Toast.makeText(view.context,i.name + " clicked",Toast.LENGTH_SHORT).show()
+                    var debitFragment: DebitFragment = DebitFragment()
+                    debitFragment.openDialog(holder.itemView.context,i)
                 }
             }
         }

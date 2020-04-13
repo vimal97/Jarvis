@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.ComponentCallbacks2
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -89,6 +90,8 @@ class AddDebitActivity : AppCompatActivity() {
             debitListArray += gson.toJson(debitData)
             sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
         }
+        Toast.makeText(view.context,"Successfully added a debit",Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this@AddDebitActivity,dashboard::class.java))
     }
 
     private fun showDate(year: Int, month: Int, day: Int) {

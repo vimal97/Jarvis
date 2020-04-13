@@ -2,11 +2,17 @@
 
 package com.example.jarvis.ui.debits
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,12 +23,34 @@ import com.example.jarvis.R
 import com.example.jarvis.SharedPreference
 import com.google.gson.Gson
 
+
 @Suppress("DEPRECATION")
 class DebitFragment : Fragment() {
 
     private lateinit var debitViewModel: DebitViewModel
     private lateinit var sharedPreference: SharedPreference
 
+    public fun openDialog(context: Context,data: DebitData){
+        var  builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        val view = LayoutInflater.from(context).inflate(R.layout.viewdebitdata, null, false)
+        view.findViewById<TextView>(R.id.text_name_debit_value).text = data.name
+        view.findViewById<TextView>(R.id.text_amount_debit_value).text = data.amount
+        view.findViewById<TextView>(R.id.text_borrow_debit_value).text = data.borrowed_date
+        view.findViewById<TextView>(R.id.text_return_debit_value).text = data.return_date
+        view.findViewById<TextView>(R.id.text_reason_debit_value).text = data.reason
+
+        builder.setView(view)
+            .setTitle("Debit Information")
+            .setNegativeButton("Cancel", DialogInterface.OnClickListener(){
+                    dialigInteface: DialogInterface,i : Int ->
+
+            })
+            .setPositiveButton("Update",DialogInterface.OnClickListener(){
+                    dialogInterface: DialogInterface,i: Int ->
+
+            })
+        builder.create().show()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

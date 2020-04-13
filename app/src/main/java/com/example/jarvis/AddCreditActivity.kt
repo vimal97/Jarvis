@@ -3,6 +3,7 @@ package com.example.jarvis
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -93,5 +94,7 @@ class AddCreditActivity : AppCompatActivity() {
             creditListArray += gson.toJson(creditData)
             sharedPreference.pushCreditData("CreditList",creditListArray.joinToString("|"))
         }
+        Toast.makeText(view.context,"Successfully added a credit",Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this@AddCreditActivity,dashboard::class.java))
     }
 }
