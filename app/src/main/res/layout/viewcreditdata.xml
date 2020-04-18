@@ -107,4 +107,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/text_return_credit_value" />
 
+    <CheckBox
+        android:id="@+id/paidfull_credit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paid Full Amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
