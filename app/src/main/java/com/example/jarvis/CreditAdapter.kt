@@ -24,7 +24,7 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
         return CreditViewHolder(itemView)
     }
 
-    public fun openDialog(context: Context, data: CreditData){
+    private fun openDialog(context: Context, data: CreditData){
         var  builder: AlertDialog.Builder = AlertDialog.Builder(context)
         var sharedPreference: SharedPreference
         val view = LayoutInflater.from(context).inflate(R.layout.viewcreditdata, null, false)
