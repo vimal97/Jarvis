@@ -118,7 +118,6 @@ class Home : AppCompatActivity() {
             //play the success tone
             //check for the particular wish
             val c: Calendar = Calendar.getInstance()
-
             when (c.get(Calendar.HOUR_OF_DAY)) {
                 in 0..11 -> {
                     //morning

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_fullscreen.*
  */
 class FullscreenActivity : AppCompatActivity() {
     private val mHideHandler = Handler()
-    private lateinit var mediaPlayer: MediaPlayer
+    public lateinit var mediaPlayer: MediaPlayer
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation bar
 

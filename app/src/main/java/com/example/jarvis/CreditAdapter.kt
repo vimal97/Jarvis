@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jarvis.ui.credits.CreditFragment
@@ -43,30 +44,48 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
             })
             .setPositiveButton("Update", DialogInterface.OnClickListener(){
                 dialogInterface: DialogInterface, i : Int ->
+
                 var gson = Gson()
                 var sharedPreference = SharedPreference(context)
                 var fetchedCreditData = sharedPreference.getCreditData("CreditList")
                 Log.v("Test_Vimal","Fetched data : " + fetchedCreditData.toString())
                 var fetchedCreditDataList = fetchedCreditData?.split("|")?.toList()?.toMutableList()
                 Log.v("Test_Vimal","Fetched data -> list converted : " + fetchedCreditDataList)
-                var fetchedCreditDataListIterator: CreditData
-                if (fetchedCreditDataList != null) {
-                    for( i in 0 until fetchedCreditDataList.size){
-                        if(fetchedCreditDataList[i] != ""){
-                            fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
-                            if(fetchedCreditDataListIterator.id == data.id){
-                                fetchedCreditDataListIterator.amount = view.findViewById<TextView>(R.id.text_amount_credit_value).text.toString()
-                                holderUpdate = fetchedCreditDataListIterator
-                                fetchedCreditDataList?.set(i,
-                                    gson.toJson(fetchedCreditDataListIterator)
-                                )
+
+                if(view.findViewById<CheckBox>(R.id.paidfull_credit).isChecked){
+                    //remove the entry
+                    var fetchedCreditDataListIterator: CreditData
+                    if (fetchedCreditDataList != null) {
+                        for (i in 0 until fetchedCreditDataList.size) {
+                            if(fetchedCreditDataList[i] != ""){
+                                fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
+                                if(fetchedCreditDataListIterator.id == data.id){
+                                    fetchedCreditDataList.removeAt(i)
+                                    sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
+                                }
                             }
                         }
                     }
                 }
-                Log.v("Test_Vimal","Fetched data -> after updation : " + fetchedCreditDataList)
-                if (fetchedCreditDataList != null) {
-                    sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
+                else{
+                    //just update the value
+                    var fetchedCreditDataListIterator: CreditData
+                    if (fetchedCreditDataList != null) {
+                        for( i in 0 until fetchedCreditDataList.size){
+                            if(fetchedCreditDataList[i] != ""){
+                                fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
+                                if(fetchedCreditDataListIterator.id == data.id){
+                                    fetchedCreditDataListIterator.amount = view.findViewById<TextView>(R.id.text_amount_credit_value).text.toString()
+                                    holderUpdate = fetchedCreditDataListIterator
+                                    fetchedCreditDataList?.set(i,
+                                        gson.toJson(fetchedCreditDataListIterator)
+                                    )
+                                }
+                            }
+                        }
+                        Log.v("Test_Vimal","Fetched data -> after updation : " + fetchedCreditDataList)
+                        sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
+                    }
                 }
             })
         builder.create().show()

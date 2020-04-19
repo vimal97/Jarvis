@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
@@ -48,24 +49,40 @@ class DebitAdapter(private val debitList: List<DebitData>) : RecyclerView.Adapte
                 Log.v("Test_Vimal","Fetched data : " + fetchedDebitData.toString())
                 var fetchedDebitDataList = fetchedDebitData?.split("|")?.toList()?.toMutableList()
                 Log.v("Test_Vimal","Fetched data -> list converted : " + fetchedDebitDataList)
-                var fetchedDebitDataListIterator: DebitData
-                if (fetchedDebitDataList != null) {
-                    for( i in 0 until fetchedDebitDataList.size){
-                        if(fetchedDebitDataList[i] != ""){
-                            fetchedDebitDataListIterator = gson.fromJson(fetchedDebitDataList[i],DebitData::class.java)
-                            if(fetchedDebitDataListIterator.id == data.id){
-                                fetchedDebitDataListIterator.amount = view.findViewById<TextView>(R.id.text_amount_debit_value).text.toString()
-                                holderUpdate = fetchedDebitDataListIterator
-                                fetchedDebitDataList?.set(i,
-                                    gson.toJson(fetchedDebitDataListIterator)
-                                )
+                if(view.findViewById<CheckBox>(R.id.paidfull_debit).isChecked){
+                    //remove the entry
+                    var fetchedDebitDataListIterator: DebitData
+                    if (fetchedDebitDataList != null) {
+                        for( i in 0 until fetchedDebitDataList.size){
+                            if(fetchedDebitDataList[i] != ""){
+                                fetchedDebitDataListIterator = gson.fromJson(fetchedDebitDataList[i],DebitData::class.java)
+                                if(fetchedDebitDataListIterator.id == data.id){
+                                    fetchedDebitDataList.removeAt(i)
+                                    sharedPreference.pushCreditData("DebitList",fetchedDebitDataList.joinToString("|"))
+                                }
                             }
                         }
                     }
                 }
-                Log.v("Test_Vimal","Fetched data -> after updation : " + fetchedDebitDataList)
-                if (fetchedDebitDataList != null) {
-                    sharedPreference.pushCreditData("DebitList",fetchedDebitDataList.joinToString("|"))
+                else{
+                    //update the value
+                    var fetchedDebitDataListIterator: DebitData
+                    if (fetchedDebitDataList != null) {
+                        for( i in 0 until fetchedDebitDataList.size){
+                            if(fetchedDebitDataList[i] != ""){
+                                fetchedDebitDataListIterator = gson.fromJson(fetchedDebitDataList[i],DebitData::class.java)
+                                if(fetchedDebitDataListIterator.id == data.id){
+                                    fetchedDebitDataListIterator.amount = view.findViewById<TextView>(R.id.text_amount_debit_value).text.toString()
+                                    holderUpdate = fetchedDebitDataListIterator
+                                    fetchedDebitDataList?.set(i,
+                                        gson.toJson(fetchedDebitDataListIterator)
+                                    )
+                                }
+                            }
+                        }
+                        sharedPreference.pushCreditData("DebitList",fetchedDebitDataList.joinToString("|"))
+                        Log.v("Test_Vimal","Fetched data -> after updation : " + fetchedDebitDataList)
+                    }
                 }
             })
         builder.create().show()

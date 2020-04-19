@@ -43,7 +43,6 @@ class AddDebitActivity : AppCompatActivity() {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         today = "$day/$month/$year"
-        sharedPreference.removeData("DebitList")
     }
 
     override fun onCreateDialog(id: Int): Dialog? { // TODO Auto-generated method stub
