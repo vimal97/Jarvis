@@ -33,7 +33,17 @@ class DebitAdapter(private val debitList: List<DebitData>) : RecyclerView.Adapte
         view.findViewById<TextView>(R.id.text_amount_debit_value).text = data.amount
         view.findViewById<TextView>(R.id.text_borrow_debit_value).text = data.borrowed_date
         view.findViewById<TextView>(R.id.text_return_debit_value).text = data.return_date
-        view.findViewById<TextView>(R.id.text_reason_debit_value).text = data.reason
+        if(data.reason.length > 10){
+            view.findViewById<TextView>(R.id.text_reason_debit_value).text = data.reason.subSequence(0,9).toString() + "..."
+        }
+        else{
+            view.findViewById<TextView>(R.id.text_reason_debit_value).text = data.reason
+        }
+
+        view.findViewById<TextView>(R.id.text_reason_debit_value).setOnClickListener {
+            view ->
+            Toast.makeText(view.context,data.reason,Toast.LENGTH_SHORT).show()
+        }
 
         builder.setView(view)
             .setTitle("Debit Information")

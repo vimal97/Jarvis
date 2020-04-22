@@ -10,7 +10,7 @@
         android:id="@+id/text_name_credit_main"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="To"
+        android:text="From"
         android:textSize="@dimen/popup_text"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -103,6 +103,7 @@
         android:layout_width="200dp"
         android:layout_height="23dp"
         android:text="Reason"
+        android:onClick="showReason"
         android:textSize="@dimen/popup_text"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/text_return_credit_value" />

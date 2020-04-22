@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jarvis.ui.credits.CreditFragment
 import com.google.gson.Gson
@@ -34,7 +35,17 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
         view.findViewById<TextView>(R.id.text_amount_credit_value).text = data.amount
         view.findViewById<TextView>(R.id.text_borrow_credit_value).text = data.borrowed_date
         view.findViewById<TextView>(R.id.text_return_credit_value).text = data.return_date
-        view.findViewById<TextView>(R.id.text_reason_credit_value).text = data.reason
+        if(data.reason.length > 10){
+            view.findViewById<TextView>(R.id.text_reason_credit_value).text = data.reason.subSequence(0,9).toString() + "..."
+        }
+        else{
+            view.findViewById<TextView>(R.id.text_reason_credit_value).text = data.reason
+        }
+
+        view.findViewById<TextView>(R.id.text_reason_credit_value).setOnClickListener {
+            view ->
+            Toast.makeText(view.context,data.reason,Toast.LENGTH_SHORT).show()
+        }
 
         builder.setView(view)
             .setTitle("Credit Information")

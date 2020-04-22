@@ -22,4 +22,13 @@
     <string name="menu_daily_reminders">Add daily reminders</string>
     <string name="menu_normal_reminders">Add normal reminders</string>
     <string name="menu_view_reminders">All reminders</string>
+
+    <string-array name="expense_types">
+        <item>Transport</item>
+        <item>Entertainment</item>
+        <item>Medical</item>
+        <item>Installments</item>
+        <item>Stationaries</item>
+        <item>Others</item>
+    </string-array>
 </resources>
