@@ -35,7 +35,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:onClick="showTodaysExpense">
 
 
                     <ImageView
@@ -56,7 +57,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:fontFamily="sans-serif"
-                        android:text="Last Day Expense"
+                        android:text="Today's Expense"
                         android:textColor="@color/expense_card_headline_1"
                         android:textSize="22.5dp"
                         android:textStyle="bold|italic"
@@ -68,7 +69,7 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/todaysExpense"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

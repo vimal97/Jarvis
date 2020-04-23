@@ -9,16 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddDReminderActivity"
-            android:parentActivityName=".dashboard"></activity>
-        <activity android:name=".AddNReminderActivity"
+        <activity
+            android:name=".ViewTodaysExpense"
             android:parentActivityName=".dashboard"/>
-        <activity android:name=".AddDebitActivity"
-            android:parentActivityName=".dashboard"/>
-        <activity android:name=".AddCreditActivity"
-            android:parentActivityName=".dashboard"/>
-        <activity android:name=".AddExpenseActivity"
-            android:parentActivityName=".dashboard"/>
+        <activity
+            android:name=".AddDReminderActivity"
+            android:parentActivityName=".dashboard" />
+        <activity
+            android:name=".AddNReminderActivity"
+            android:parentActivityName=".dashboard" />
+        <activity
+            android:name=".AddDebitActivity"
+            android:parentActivityName=".dashboard" />
+        <activity
+            android:name=".AddCreditActivity"
+            android:parentActivityName=".dashboard" />
+        <activity
+            android:name=".AddExpenseActivity"
+            android:parentActivityName=".dashboard" />
         <activity
             android:name=".dashboard"
             android:label="@string/title_activity_dashboard"

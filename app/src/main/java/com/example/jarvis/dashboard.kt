@@ -11,6 +11,7 @@ import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,7 +24,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.gson.Gson
 import org.json.JSONObject
+import java.util.*
 
 
 @Suppress("DEPRECATION")
@@ -153,5 +156,9 @@ class dashboard : AppCompatActivity() {
 
         val jsonObject = PreferenceManager.getDefaultSharedPreferences(this).getString("theJson", "")
         Toast.makeText(this.applicationContext,jsonObject,Toast.LENGTH_LONG).show();
+    }
+
+    fun showTodaysExpense(view: View) {
+        startActivity(Intent(this@dashboard,ViewTodaysExpense::class.java))
     }
 }
