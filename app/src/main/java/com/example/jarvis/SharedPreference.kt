@@ -16,6 +16,18 @@ class SharedPreference(val context: Context) {
         editor.commit()
     }
 
+    fun pushExpenseData(KEY_NAME: String,value: String){
+        var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis", MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString(KEY_NAME, value)
+        editor.commit()
+    }
+
+    fun getExpenseData(KEY_NAME: String): String?{
+        var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis",MODE_PRIVATE)
+        return sharedPref.getString(KEY_NAME, null)
+    }
+
     fun getCreditData(KEY_NAME: String): String? {
         var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis",MODE_PRIVATE)
         return sharedPref.getString(KEY_NAME, null)

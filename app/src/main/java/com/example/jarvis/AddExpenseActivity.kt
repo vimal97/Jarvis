@@ -1,7 +1,9 @@
 package com.example.jarvis
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.google.gson.Gson
@@ -55,7 +57,19 @@ class AddExpenseActivity : AppCompatActivity() {
         val today = calendar.get(Calendar.DAY_OF_MONTH).toString() + "/" + calendar.get(Calendar.MONTH).toString() + "/" + calendar.get(Calendar.YEAR).toString()
         val expenseData = ExpenseData(amount,today,expenseType)
         var gson = Gson()
-        Toast.makeText(this@AddExpenseActivity,gson.toJson(expenseData).toString(),Toast.LENGTH_LONG).show()
+        val sharedPreference = SharedPreference(this)
+        val expenseDataFetched = sharedPreference.getExpenseData("ExpenseList_$today")
+        var expenseDataList = expenseDataFetched?.split("|")?.toList()
+        if (expenseDataList != null) {
+            expenseDataList += gson.toJson(expenseData)
+            sharedPreference.pushExpenseData("ExpenseList_$today",expenseDataList.joinToString("|"))
+        }
+        else{
+            sharedPreference.pushExpenseData("ExpenseList_$today",gson.toJson(expenseData))
+        }
+        Log.v("Test_Vimal","Submitted expense data : " + sharedPreference.getExpenseData("ExpenseList_$today"))
+        Toast.makeText(this@AddExpenseActivity, "Expense of $amount \u20B9 added.",Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this@AddExpenseActivity,dashboard::class.java))
     }
 
     fun uploadImage(view: View) {
