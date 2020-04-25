@@ -33,7 +33,7 @@ class ExpensesFragment : Fragment() {
         //show expense details
         val sharedPreference = SharedPreference(view1.context)
         val calendar = Calendar.getInstance()
-        val today = calendar.get(Calendar.DAY_OF_MONTH).toString() + "/" + calendar.get(Calendar.MONTH).toString() + "/" + calendar.get(
+        val today = calendar.get(Calendar.DAY_OF_MONTH).toString() + "/" + (calendar.get(Calendar.MONTH) + 1).toString() + "/" + calendar.get(
             Calendar.YEAR).toString()
         val expenseDataFetched = sharedPreference.getExpenseData("ExpenseList_$today")
         var todaysExpense = 0

@@ -161,4 +161,8 @@ class dashboard : AppCompatActivity() {
     fun showTodaysExpense(view: View) {
         startActivity(Intent(this@dashboard,ViewTodaysExpense::class.java))
     }
+
+    fun searchForExpense(view: View){
+        startActivity(Intent(this@dashboard,SearchExpenseActivity::class.java))
+    }
 }

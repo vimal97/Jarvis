@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewTodaysExpense">
+    tools:context=".SearchExpenseActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/todaysExpenseRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/searchExpenseRecyclerView"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/boarder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchDate"
+        app:layout_constraintVertical_bias="0.324" />
+
+    <Button
+        android:id="@+id/searchDate"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:textColor="@android:color/white"
+        android:background="@color/date_buttons_credit"
+        android:text="Choose a date"
+        android:onClick="chooseDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/expenseNotFoundToday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/expenseNotFound"
+        android:layout_width="242dp"
+        android:layout_height="240dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/todaysExpenseRecyclerView"
-        app:layout_constraintVertical_bias="0.317">
+        app:layout_constraintTop_toBottomOf="@+id/searchDate"
+        app:layout_constraintVertical_bias="0.299"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -39,14 +59,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Hurray no expense found today !!"
+            android:text="Hurray no expense found on that day !!"
             android:textColor="@android:color/black"
             android:textSize="20dp"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"></TextView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

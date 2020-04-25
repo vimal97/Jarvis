@@ -54,7 +54,7 @@ class AddExpenseActivity : AppCompatActivity() {
             expenseType = findViewById<EditText>(R.id.newExpenseType).text.toString()
         }
         val calendar = Calendar.getInstance()
-        val today = calendar.get(Calendar.DAY_OF_MONTH).toString() + "/" + calendar.get(Calendar.MONTH).toString() + "/" + calendar.get(Calendar.YEAR).toString()
+        val today = calendar.get(Calendar.DAY_OF_MONTH).toString() + "/" + (calendar.get(Calendar.MONTH) + 1).toString() + "/" + calendar.get(Calendar.YEAR).toString()
         val expenseData = ExpenseData(amount,today,expenseType)
         var gson = Gson()
         val sharedPreference = SharedPreference(this)

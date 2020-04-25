@@ -10,8 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ViewTodaysExpense"
+            android:name=".SearchExpenseActivity"
             android:parentActivityName=".dashboard"/>
+        <activity
+            android:name=".ViewTodaysExpense"
+            android:parentActivityName=".dashboard" />
         <activity
             android:name=".AddDReminderActivity"
             android:parentActivityName=".dashboard" />
