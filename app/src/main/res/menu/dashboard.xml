@@ -5,10 +5,18 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
+        android:onClick="settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/clearExpense"
+        android:orderInCategory="101"
+        android:title="@string/clearExpenseText"
+        android:onClick="clearExpense"
         app:showAsAction="never" />
     <item
         android:id="@+id/logout"
-        android:orderInCategory="101"
+        android:orderInCategory="108"
         android:title="@string/logout"
+        android:onClick="logout"
         app:showAsAction="never" />
 </menu>

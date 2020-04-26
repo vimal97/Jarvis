@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -164,5 +165,31 @@ class dashboard : AppCompatActivity() {
 
     fun searchForExpense(view: View){
         startActivity(Intent(this@dashboard,SearchExpenseActivity::class.java))
+    }
+
+    fun clearExpense(item: MenuItem) {
+        val calendar = Calendar.getInstance();
+        val year = calendar.get(Calendar.YEAR);
+        val month = calendar.get(Calendar.MONTH) + 1;
+        val day = calendar.get(Calendar.DAY_OF_MONTH);
+        var today = "$day/$month/$year"
+        Toast.makeText(this@dashboard,"Clearing expenses till $today",Toast.LENGTH_SHORT).show()
+        val sharedPreference = SharedPreference(this)
+        var temp = ""
+        for (i in 1..day){
+            temp = sharedPreference.getExpenseData("ExpenseList_$today").toString()
+            if(!(temp == "" || temp == null)){
+                sharedPreference.pushExpenseData("ExpenseList_$today","")
+            }
+        }
+        Toast.makeText(this@dashboard,"Successfully cleared expense data",Toast.LENGTH_SHORT).show()
+    }
+
+    fun logout(item: MenuItem) {
+        startActivity(Intent(this@dashboard,Home::class.java))
+    }
+
+    fun settings(item: MenuItem) {
+        Toast.makeText(this@dashboard,"Work under progress",Toast.LENGTH_SHORT).show()
     }
 }

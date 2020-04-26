@@ -41,8 +41,10 @@ class ExpensesFragment : Fragment() {
             var temp: ExpenseData
             val gson = Gson()
             for(i in expenseDataFetched.split("|").toList()){
-                temp = gson.fromJson(i, ExpenseData::class.java)
-                todaysExpense += temp.amount.toInt()
+                if(!(i == "")){
+                    temp = gson.fromJson(i, ExpenseData::class.java)
+                    todaysExpense += temp.amount.toInt()
+                }
             }
             view1.findViewById<TextView>(R.id.todaysExpense).text = "\u20B9 ${todaysExpense.toString()}"
         }
