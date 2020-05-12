@@ -2,6 +2,7 @@
 
 package com.example.jarvis.ui.analysis
 
+import CustomMarker
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.jarvis.ExpenseData
 import com.example.jarvis.R
 import com.example.jarvis.SharedPreference
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.gson.Gson
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
@@ -53,13 +58,17 @@ class AnalysisFragment : Fragment() {
         var finalDataKeys = listOf<String>()
         val finalDataValues = mutableListOf<Int>()
         var tempJson: ExpenseData
+        var todaysTotal: Float
+        var dayWiseExpense = listOf<Float>()
         for (i in 1..day){
+            todaysTotal = 0F
             temp = sharedPreference.getExpenseData("ExpenseList_$i/$month/$year").toString()
             if(temp != "null"){
                 Log.v("Test_Vimal","Value for pie ExpenseList_$i/$month/$year is : $temp")
                 for(i in temp.split("|").toList()){
                     if(i != ""){
                         tempJson = gson.fromJson(i,ExpenseData::class.java)
+                        todaysTotal += tempJson.amount.toFloat()
                         if(finalDataKeys.indexOf(tempJson.type) < 0){
                             if(tempJson.type in listOf<String>("Transport","Entertainment","Medical","Installments","Stationaries")){
                                 finalDataKeys += tempJson.type
@@ -76,6 +85,7 @@ class AnalysisFragment : Fragment() {
                     }
                 }
             }
+            dayWiseExpense += todaysTotal
         }
 
 
@@ -91,6 +101,30 @@ class AnalysisFragment : Fragment() {
         pieChartData.setHasCenterCircle(true).setCenterText1("This month").setCenterText1FontSize(20)
             .centerText1Color = Color.parseColor("#0097A7");
         pieChartView.pieChartData = pieChartData
+
+        //setting up line chart
+        val entries = ArrayList<Entry>()
+        for( i in dayWiseExpense.indices){
+            entries.add(Entry(i.toFloat(), dayWiseExpense[i]))
+        }
+        val vl = LineDataSet(entries, "Days")
+        vl.setDrawValues(false)
+        vl.setDrawFilled(true)
+        vl.lineWidth = 3f
+        vl.fillColor = R.color.cardViewHeadline
+        vl.fillAlpha = R.color.date_buttons_debit
+        val lineChart = view.findViewById<com.github.mikephil.charting.charts.LineChart>(R.id.analysisLineChart)
+        lineChart.xAxis.labelRotationAngle = 0f
+        lineChart.data = LineData(vl)
+        lineChart.axisRight.isEnabled = false
+//        lineChart.xAxis.axisMaximum = j+0.1f
+        lineChart.setTouchEnabled(true)
+        lineChart.setPinchZoom(true)
+        lineChart.description.text = "Days"
+        lineChart.setNoDataText("No forex yet!")
+        lineChart.animateX(1800, Easing.EaseInExpo)
+        val markerView = CustomMarker(view.context, R.layout.marker_view)
+        lineChart.marker = markerView
 
         return view
     }

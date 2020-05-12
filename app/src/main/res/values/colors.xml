@@ -22,4 +22,9 @@
     <color name="date_buttons_credit">#6283F6</color>
     <color name="date_buttons_debit">#F65562</color>
     <color name="submit_buttons">#52EA1A</color>
-</resources>
+    <color name="colorLight">#4064EC</color>
+    <color name="colorDark">#142A7E</color>
+    <color name="gray">#4E4C4C</color>
+    <color name="red">#FF0000</color>
+    <color name="analysis_fragment">#F7595956</color>
+    </resources>
