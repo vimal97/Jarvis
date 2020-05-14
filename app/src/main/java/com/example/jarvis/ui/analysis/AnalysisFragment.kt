@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -51,7 +52,7 @@ class AnalysisFragment : Fragment() {
         val gson = Gson()
         val calendar = Calendar.getInstance();
         val year = calendar.get(Calendar.YEAR);
-        val month = calendar.get(Calendar.MONTH) + 1;
+        var month = calendar.get(Calendar.MONTH) + 1;
         val day = calendar.get(Calendar.DAY_OF_MONTH);
         var today = "$day/$month/$year"
         var temp = ""
@@ -60,9 +61,12 @@ class AnalysisFragment : Fragment() {
         var tempJson: ExpenseData
         var todaysTotal: Float
         var dayWiseExpense = listOf<Float>()
+        var thisMonthExpense = mutableListOf<String>()
+        thisMonthExpense.add("")
         for (i in 1..day){
             todaysTotal = 0F
             temp = sharedPreference.getExpenseData("ExpenseList_$i/$month/$year").toString()
+            thisMonthExpense.add(temp)
             if(temp != "null"){
                 Log.v("Test_Vimal","Value for pie ExpenseList_$i/$month/$year is : $temp")
                 for(i in temp.split("|").toList()){
@@ -125,6 +129,73 @@ class AnalysisFragment : Fragment() {
         lineChart.animateX(1800, Easing.EaseInExpo)
         val markerView = CustomMarker(view.context, R.layout.marker_view)
         lineChart.marker = markerView
+
+        //compare with previous month
+        var thisMonthTransport = 0
+        var thisMonthEntertainment = 0
+        var thisMonthstationaries = 0
+        var thisMonthOthers = 0
+        var lastMonthTransport = 0
+        var lastMonthEntertainment = 0
+        var lastMonthstationaries = 0
+        var lastMonthOthers = 0
+        var lastMonthExpense = mutableListOf<String>()
+        month -= 1
+        lastMonthExpense.add("")
+        for(i in 1..31){
+            var tempList = mutableListOf<String>()
+            lastMonthExpense.add(sharedPreference.getExpenseData("ExpenseList_$i/$month/$year").toString())
+            if(i <= day){
+                if(!(thisMonthExpense[i] == "null" || thisMonthExpense[i] == ""))
+                {
+                    Log.v("Test_Vimal", "This Month $i day : " + thisMonthExpense[i])
+                    tempList = thisMonthExpense[i].split("|").toMutableList()
+                    for(j in tempList){
+                        if(j != "")
+                        {
+                            tempJson = gson.fromJson(j,ExpenseData::class.java)
+                            when(tempJson.type){
+                                "Transport" -> thisMonthTransport += tempJson.amount.toInt()
+                                "Entertainment" -> thisMonthEntertainment += tempJson.amount.toInt()
+                                "Stationaries" -> thisMonthstationaries += tempJson.amount.toInt()
+                                "Installments" -> ""
+                                "Medical" -> ""
+                                else -> thisMonthOthers += tempJson.amount.toInt()
+                            }
+                        }
+                    }
+                }
+            }
+            if(!(lastMonthExpense[i] == "null" || lastMonthExpense[i] == "")){
+                Log.v("Test_Vimal", "Last Month $i day : " + lastMonthExpense[i])
+                tempList = lastMonthExpense[i].split("|").toMutableList()
+                for(j in tempList){
+                    if(j != ""){
+                        tempJson = gson.fromJson(j,ExpenseData::class.java)
+                        when(tempJson.type){
+                            "Transport" -> lastMonthTransport += tempJson.amount.toInt()
+                            "Entertainment" -> lastMonthEntertainment += tempJson.amount.toInt()
+                            "Stationaries" -> lastMonthstationaries += tempJson.amount.toInt()
+                            "Installments" -> ""
+                            "Medical" -> ""
+                            else -> lastMonthOthers += tempJson.amount.toInt()
+                        }
+                    }
+                }
+            }
+        }
+        Log.v("Test_Vimal", "This month transport : $thisMonthTransport")
+        Log.v("Test_Vimal", "This month entertainment : $thisMonthEntertainment")
+        Log.v("Test_Vimal", "This month stationaries : $thisMonthstationaries")
+        Log.v("Test_Vimal", "This month Others : $thisMonthOthers")
+        Log.v("Test_Vimal", "Last month transport : $lastMonthTransport")
+        Log.v("Test_Vimal", "Last month entertainment : $lastMonthEntertainment")
+        Log.v("Test_Vimal", "Last month stationaries : $lastMonthstationaries")
+        Log.v("Test_Vimal", "Last month Others : $lastMonthOthers")
+        (view.findViewById<TextView>(R.id.compare_transport_value)).text = "\u20B9" + (lastMonthTransport - thisMonthTransport).toString()
+        (view.findViewById<TextView>(R.id.compare_entertainment_value)).text = "\u20B9" + (lastMonthEntertainment - thisMonthEntertainment).toString()
+        (view.findViewById<TextView>(R.id.compare_stationaries_value)).text = "\u20B9" + (lastMonthstationaries - thisMonthstationaries).toString()
+        (view.findViewById<TextView>(R.id.compare_others_value)).text = "\u20B9" + (lastMonthOthers - thisMonthOthers).toString()
 
         return view
     }

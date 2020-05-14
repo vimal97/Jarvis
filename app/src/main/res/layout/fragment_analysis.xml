@@ -68,6 +68,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
                 android:text="Compared to last month"
                 android:textColor="@android:color/white"
                 android:textSize="20dp"
@@ -79,19 +80,21 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Hello"
+                    android:id="@+id/compare_transport"
+                    android:text="Transport"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="25dp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="17dp"
                     android:textColor="@android:color/white"
                     />
                 <TextView
-                    android:text="Hello"
+                    android:id="@+id/compare_transport_value"
+                    android:text=""
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="17dp"
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="10dp"
@@ -104,19 +107,21 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Hello"
+                    android:id="@+id/compare_entertainment"
+                    android:text="Entertainment"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="25dp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="17dp"
                     android:textColor="@android:color/white"
                     />
                 <TextView
-                    android:text="Hello"
+                    android:id="@+id/compare_entertainment_value"
+                    android:text=""
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="17dp"
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="10dp"
@@ -128,19 +133,47 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Hello"
+                    android:id="@+id/compare_stationaries"
+                    android:text="Stationaries"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="25dp"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="17dp"
                     android:textColor="@android:color/white"
                     />
                 <TextView
-                    android:text="Hello"
+                    android:id="@+id/compare_stationaries_value"
+                    android:text=""
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="17dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="10dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/compare_others"
+                    android:text="Others"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="17dp"
+                    android:textColor="@android:color/white"
+                    />
+                <TextView
+                    android:id="@+id/compare_others_value"
+                    android:text=""
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="17dp"
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="200dp"
                     android:layout_marginTop="10dp"
