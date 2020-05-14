@@ -192,10 +192,42 @@ class AnalysisFragment : Fragment() {
         Log.v("Test_Vimal", "Last month entertainment : $lastMonthEntertainment")
         Log.v("Test_Vimal", "Last month stationaries : $lastMonthstationaries")
         Log.v("Test_Vimal", "Last month Others : $lastMonthOthers")
-        (view.findViewById<TextView>(R.id.compare_transport_value)).text = "\u20B9" + (lastMonthTransport - thisMonthTransport).toString()
-        (view.findViewById<TextView>(R.id.compare_entertainment_value)).text = "\u20B9" + (lastMonthEntertainment - thisMonthEntertainment).toString()
-        (view.findViewById<TextView>(R.id.compare_stationaries_value)).text = "\u20B9" + (lastMonthstationaries - thisMonthstationaries).toString()
-        (view.findViewById<TextView>(R.id.compare_others_value)).text = "\u20B9" + (lastMonthOthers - thisMonthOthers).toString()
+        var compareTransport = lastMonthTransport - thisMonthTransport
+        if(compareTransport < 0){
+            compareTransport *= -1
+            (view.findViewById<TextView>(R.id.compare_transport_value)).setTextColor(resources.getColor(R.color.floating_close))
+            (view.findViewById<TextView>(R.id.compare_transport_value)).text = "↑ $compareTransport ₹"
+        }else{
+            (view.findViewById<TextView>(R.id.compare_transport_value)).setTextColor(resources.getColor(R.color.submit_buttons))
+            (view.findViewById<TextView>(R.id.compare_transport_value)).text = "↓ $compareTransport ₹"
+        }
+        var compareEntertainment = lastMonthEntertainment - thisMonthEntertainment
+        if(compareEntertainment < 0){
+            compareEntertainment *= -1
+            (view.findViewById<TextView>(R.id.compare_entertainment_value)).setTextColor(resources.getColor(R.color.floating_close))
+            (view.findViewById<TextView>(R.id.compare_entertainment_value)).text = "↑ $compareEntertainment ₹"
+        }else{
+            (view.findViewById<TextView>(R.id.compare_entertainment_value)).setTextColor(resources.getColor(R.color.submit_buttons))
+            (view.findViewById<TextView>(R.id.compare_entertainment_value)).text = "↓ $compareEntertainment ₹"
+        }
+        var compareStationaries = lastMonthstationaries - thisMonthstationaries
+        if(compareStationaries < 0){
+            compareStationaries *= -1
+            (view.findViewById<TextView>(R.id.compare_stationaries_value)).setTextColor(resources.getColor(R.color.floating_close))
+            (view.findViewById<TextView>(R.id.compare_stationaries_value)).text = "↑ $compareStationaries ₹"
+        }else{
+            (view.findViewById<TextView>(R.id.compare_stationaries_value)).setTextColor(resources.getColor(R.color.submit_buttons))
+            (view.findViewById<TextView>(R.id.compare_stationaries_value)).text = "↓ $compareStationaries ₹"
+        }
+        var compareOthers = lastMonthOthers - thisMonthOthers
+        if(compareOthers < 0){
+            compareOthers *= -1
+            (view.findViewById<TextView>(R.id.compare_others_value)).setTextColor(resources.getColor(R.color.floating_close))
+            (view.findViewById<TextView>(R.id.compare_others_value)).text = "↑ $compareOthers ₹"
+        }else{
+            (view.findViewById<TextView>(R.id.compare_others_value)).setTextColor(resources.getColor(R.color.submit_buttons))
+            (view.findViewById<TextView>(R.id.compare_others_value)).text = "↓ $compareOthers ₹"
+        }
 
         return view
     }

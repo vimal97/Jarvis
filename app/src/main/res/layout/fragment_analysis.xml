@@ -93,10 +93,11 @@
                     android:id="@+id/compare_transport_value"
                     android:text=""
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:textSize="17dp"
+                    android:gravity="right"
                     android:textColor="@android:color/white"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginRight="25dp"
                     android:layout_marginTop="10dp"
                     />
             </LinearLayout>
@@ -120,10 +121,11 @@
                     android:id="@+id/compare_entertainment_value"
                     android:text=""
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:textSize="17dp"
                     android:textColor="@android:color/white"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
                     android:layout_marginTop="10dp"
                     />
             </LinearLayout>
@@ -146,10 +148,11 @@
                     android:id="@+id/compare_stationaries_value"
                     android:text=""
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:textSize="17dp"
                     android:textColor="@android:color/white"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
                     android:layout_marginTop="10dp"
                     />
             </LinearLayout>
@@ -172,11 +175,13 @@
                     android:id="@+id/compare_others_value"
                     android:text=""
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:textSize="17dp"
                     android:textColor="@android:color/white"
-                    android:layout_marginLeft="200dp"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="100dp"
                     />
             </LinearLayout>
         </LinearLayout>
