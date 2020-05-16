@@ -192,4 +192,8 @@ class dashboard : AppCompatActivity() {
     fun settings(item: MenuItem) {
         Toast.makeText(this@dashboard,"Work under progress",Toast.LENGTH_SHORT).show()
     }
+
+    fun toBeImplemented(view: View) {
+        Toast.makeText(this@dashboard, "Stay tuned, will be released in version 2.0",Toast.LENGTH_SHORT).show()
+    }
 }
