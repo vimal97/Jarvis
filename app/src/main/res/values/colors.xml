@@ -27,4 +27,6 @@
     <color name="gray">#4E4C4C</color>
     <color name="red">#FF0000</color>
     <color name="analysis_fragment">#F7595956</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     </resources>

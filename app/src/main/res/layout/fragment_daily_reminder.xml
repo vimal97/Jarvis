@@ -4,16 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nav_fragment_background"
     tools:context=".dashboard">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/daily_reminder_task"
+        android:layout_width="325dp"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:hint="Specify the reminder task"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_marginLeft="20dp"
+        android:text="Choose the days : "
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daily_reminder_task" />
+
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="325dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/daily_monday"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_corner_button"
+                android:onClick="addDailyReminderDay"
+                android:text="M" />
+
+            <Button
+                android:id="@+id/daily_tuesday"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_corner_button"
+                android:onClick="addDailyReminderDay"
+                android:text="T" />
+
+            <Button
+                android:id="@+id/daily_wednesday"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_corner_button"
+                android:onClick="addDailyReminderDay"
+                android:text="W" />
+
+            <Button
+                android:id="@+id/daily_thursday"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_corner_button"
+                android:onClick="addDailyReminderDay"
+                android:text="T" />
+
+            <Button
+                android:id="@+id/daily_friday"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_corner_button"
+                android:onClick="addDailyReminderDay"
+                android:text="F" />
+
+            <Button
+                android:id="@+id/daily_saturday"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_corner_button"
+                android:onClick="addDailyReminderDay"
+                android:text="S" />
+
+            <Button
+                android:id="@+id/daily_sunday"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_corner_button"
+                android:onClick="addDailyReminderDay"
+                android:text="S" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/dailyTimeButton"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/date_buttons_debit"
+        android:onClick="chooseDailyReminderTime"
+        android:text="Choose the time for reminding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

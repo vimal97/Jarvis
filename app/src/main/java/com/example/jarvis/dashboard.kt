@@ -1,19 +1,16 @@
 package com.example.jarvis
 
-//import android.R
 
+import android.annotation.SuppressLint
+import android.app.TimePickerDialog
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -25,8 +22,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -40,6 +37,14 @@ class dashboard : AppCompatActivity() {
     private lateinit var fab4: LinearLayout
     private lateinit var fab5: LinearLayout
     private var isFABOpen: Boolean = false
+    private var choosen_mon = false
+    private var choosen_tue = false
+    private var choosen_wed = false
+    private var choosen_thu = false
+    private var choosen_fri = false
+    private var choosen_sat = false
+    private var choosen_sun = false
+    private var dailyReminderDays = mutableListOf<String>()
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -195,5 +200,114 @@ class dashboard : AppCompatActivity() {
 
     fun toBeImplemented(view: View) {
         Toast.makeText(this@dashboard, "Stay tuned, will be released in version 2.0",Toast.LENGTH_SHORT).show()
+    }
+
+    fun addDayToDailyReminder(day: String, add: Boolean){
+        if(add){
+            dailyReminderDays.add(day)
+        }
+        else{
+            dailyReminderDays.removeAt(dailyReminderDays.indexOf(day))
+        }
+    }
+
+    @SuppressLint("ResourceType")
+    fun addDailyReminderDay(view: View) {
+        when(view.id){
+            R.id.daily_monday -> {
+                if(choosen_mon){
+                    choosen_mon = false
+                    findViewById<Button>(R.id.daily_monday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button)
+                    findViewById<Button>(R.id.daily_monday).setTextColor(resources.getColor(R.color.black))
+                }
+                else{
+                    choosen_mon = true
+                    findViewById<Button>(R.id.daily_monday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button_green)
+                    findViewById<Button>(R.id.daily_monday).setTextColor(resources.getColor(R.color.white))
+                }
+            }
+            R.id.daily_tuesday -> {
+                if(choosen_tue){
+                    choosen_tue = false
+                    findViewById<Button>(R.id.daily_tuesday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button)
+                    findViewById<Button>(R.id.daily_tuesday).setTextColor(resources.getColor(R.color.black))
+                }
+                else{
+                    choosen_tue = true
+                    findViewById<Button>(R.id.daily_tuesday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button_green)
+                    findViewById<Button>(R.id.daily_tuesday).setTextColor(resources.getColor(R.color.white))
+                }
+            }
+            R.id.daily_wednesday -> {
+                if(choosen_wed){
+                    choosen_wed = false
+                    findViewById<Button>(R.id.daily_wednesday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button)
+                    findViewById<Button>(R.id.daily_wednesday).setTextColor(resources.getColor(R.color.black))
+                }
+                else{
+                    choosen_wed = true
+                    findViewById<Button>(R.id.daily_wednesday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button_green)
+                    findViewById<Button>(R.id.daily_wednesday).setTextColor(resources.getColor(R.color.white))
+                }
+            }
+            R.id.daily_thursday -> {
+                if(choosen_thu){
+                    choosen_thu = false
+                    findViewById<Button>(R.id.daily_thursday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button)
+                    findViewById<Button>(R.id.daily_thursday).setTextColor(resources.getColor(R.color.black))
+                }
+                else{
+                    choosen_thu = true
+                    findViewById<Button>(R.id.daily_thursday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button_green)
+                    findViewById<Button>(R.id.daily_thursday).setTextColor(resources.getColor(R.color.white))
+                }
+            }
+            R.id.daily_friday -> {
+                if(choosen_fri){
+                    choosen_fri = false
+                    findViewById<Button>(R.id.daily_friday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button)
+                    findViewById<Button>(R.id.daily_friday).setTextColor(resources.getColor(R.color.black))
+                }
+                else{
+                    choosen_fri = true
+                    findViewById<Button>(R.id.daily_friday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button_green)
+                    findViewById<Button>(R.id.daily_friday).setTextColor(resources.getColor(R.color.white))
+                }
+            }
+            R.id.daily_saturday -> {
+                if(choosen_sat){
+                    choosen_sat = false
+                    findViewById<Button>(R.id.daily_saturday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button)
+                    findViewById<Button>(R.id.daily_saturday).setTextColor(resources.getColor(R.color.black))
+                }
+                else{
+                    choosen_sat = true
+                    findViewById<Button>(R.id.daily_saturday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button_green)
+                    findViewById<Button>(R.id.daily_saturday).setTextColor(resources.getColor(R.color.white))
+                }
+            }
+            R.id.daily_sunday -> {
+                if(choosen_sun){
+                    choosen_sun = false
+                    findViewById<Button>(R.id.daily_sunday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button)
+                    findViewById<Button>(R.id.daily_sunday).setTextColor(resources.getColor(R.color.black))
+                }
+                else{
+                    choosen_sun = true
+                    findViewById<Button>(R.id.daily_sunday).background = ContextCompat.getDrawable(applicationContext, R.layout.rounded_corner_button_green)
+                    findViewById<Button>(R.id.daily_sunday).setTextColor(resources.getColor(R.color.white))
+                }
+            }
+        }
+    }
+
+    fun chooseDailyReminderTime(view: View) {
+        val cal = Calendar.getInstance()
+        val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+            cal.set(Calendar.HOUR_OF_DAY, hour)
+            cal.set(Calendar.MINUTE, minute)
+            findViewById<Button>(R.id.dailyTimeButton).text = "Choosen time : " + SimpleDateFormat("HH:mm").format(cal.time)
+        }
+        TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false).show()
     }
 }
