@@ -364,6 +364,8 @@ class dashboard : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addDailyReminder(view: View) {
+        val task = findViewById<EditText>(R.id.daily_reminder_task).text.toString()
+        storeReminderData(true, DailyReminderData(task, dailyReminderTime, dailyReminderDays, ""),NormalReminderData("","",""))
         val calender: Calendar = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY, dailyReminderHour)
         calender.set(Calendar.MINUTE, dailyReminderMinute)
@@ -374,6 +376,11 @@ class dashboard : AppCompatActivity() {
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calender.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent);
         Log.v("Test_Vimal", "Alarm set")
+    }
+
+    fun addNormalReminder(view: View){
+        val task = findViewById<EditText>(R.id.normal_reminder_task).text.toString()
+        storeReminderData(false, DailyReminderData("","","".split("|").toMutableList(),""),NormalReminderData(task, normalReminderDate, normalReminderTime))
     }
 
     override fun onCreateDialog(id: Int): Dialog? { // TODO Auto-generated method stub
@@ -408,23 +415,36 @@ class dashboard : AppCompatActivity() {
         setDate(view)
     }
 
-    fun storeReminderData(isDailyReminder: Boolean, dailyReminderData: DailyReminderData, normalReminderData: NormalReminderData){
+    private fun storeReminderData(isDailyReminder: Boolean, dailyReminderData: DailyReminderData, normalReminderData: NormalReminderData){
+        val gson = Gson()
+        val sharedPreference = SharedPreference(this)
         if(isDailyReminder){
             //add daily reminder data to db
-            val gson = Gson()
-            val sharedPreference = SharedPreference(this)
             var fetchedDailyReminderData = sharedPreference.getDailyReminderData("DailyReminderList")
-            val dailyReminderList = fetchedDailyReminderData.split("|").toMutableList()
-            var tempDaily: DailyReminderData
-            var tempNormal: NormalReminderData
-            dailyReminderList += gson.toJson(dailyReminderData)
-            fetchedDailyReminderData = dailyReminderList.joinToString("|")
-            sharedPreference.pushDailyReminderData("DailyReminderList", fetchedDailyReminderData)
+            val dailyReminderList = fetchedDailyReminderData?.split("|")?.toMutableList()
+            if (dailyReminderList != null) {
+                dailyReminderList += gson.toJson(dailyReminderData)
+                fetchedDailyReminderData = dailyReminderList.joinToString("|")
+            }
+            if (fetchedDailyReminderData != null) {
+                sharedPreference.pushDailyReminderData("DailyReminderList", fetchedDailyReminderData)
+            }
             Toast.makeText(applicationContext, "Daily Reminder Set", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@dashboard, dashboard::class.java))
         }
         else{
             //add normal reminder data to db
+            var fetchedNormalReminderData = sharedPreference.getNormalReminderData("NormalReminderList")
+            val normalReminderList = fetchedNormalReminderData?.split("|")?.toMutableList()
+            if (normalReminderList != null) {
+                normalReminderList += gson.toJson(normalReminderData)
+                fetchedNormalReminderData = normalReminderList.joinToString("|")
+            }
+            if (fetchedNormalReminderData != null) {
+                sharedPreference.pushNormalReminderData("NormalReminderList", fetchedNormalReminderData)
+            }
+            Toast.makeText(applicationContext, "Normal Reminder Set", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@dashboard, dashboard::class.java))
         }
     }
 }
