@@ -115,7 +115,7 @@
     <Button
         android:id="@+id/dailyTimeButton"
         android:layout_width="325dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="36dp"
         android:textColor="@color/white"
         android:backgroundTint="@color/date_buttons_debit"
@@ -124,6 +124,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/submit_buttons"
+        android:text="Add Remainder"
+        android:onClick="addDailyReminder"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dailyTimeButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
