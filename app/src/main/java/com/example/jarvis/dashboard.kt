@@ -15,10 +15,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -136,8 +133,6 @@ class dashboard : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-
     }
 
     //functions to handle floating button actions
@@ -365,7 +360,7 @@ class dashboard : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun addDailyReminder(view: View) {
         val task = findViewById<EditText>(R.id.daily_reminder_task).text.toString()
-        storeReminderData(true, DailyReminderData(task, dailyReminderTime, dailyReminderDays, ""),NormalReminderData("","",""))
+        storeReminderData(true, DailyReminderData(task, dailyReminderTime, dailyReminderDays, ""),NormalReminderData("","","", false))
         val calender: Calendar = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY, dailyReminderHour)
         calender.set(Calendar.MINUTE, dailyReminderMinute)
@@ -380,7 +375,7 @@ class dashboard : AppCompatActivity() {
 
     fun addNormalReminder(view: View){
         val task = findViewById<EditText>(R.id.normal_reminder_task).text.toString()
-        storeReminderData(false, DailyReminderData("","","".split("|").toMutableList(),""),NormalReminderData(task, normalReminderDate, normalReminderTime))
+        storeReminderData(false, DailyReminderData("","","".split("|").toMutableList(),""),NormalReminderData(task, normalReminderDate, normalReminderTime, true))
     }
 
     override fun onCreateDialog(id: Int): Dialog? { // TODO Auto-generated method stub
@@ -397,7 +392,7 @@ class dashboard : AppCompatActivity() {
             // TODO Auto-generated method stub
             val temp = arg2 + 1
             normalReminderDate = "$arg3/$temp/$arg1"
-            findViewById<Button>(R.id.dailyTimeButton).text = normalReminderDate + " at " + normalReminderTime
+            findViewById<Button>(R.id.dailyTimeButton).text = "$normalReminderDate at $normalReminderTime"
         }
 
     fun setDate(view: View?) {

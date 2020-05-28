@@ -32,4 +32,9 @@
         <item>Stationaries</item>
         <item>Others</item>
     </string-array>
+
+    <string-array name="reminder_types">
+        <item>Normal</item>
+        <item>Recurring/Daily</item>
+    </string-array>
 </resources>
