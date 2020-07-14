@@ -53,17 +53,17 @@
         android:label="@string/menu_analysis"
         tools:layout="@layout/fragment_analysis"/>
 
-    <fragment
-        android:id="@+id/nav_daily_reminders"
-        android:name="com.example.jarvis.ui.daily_reminders.DailyRemindersFragment"
-        android:label="@string/menu_daily_reminders"
-        tools:layout="@layout/fragment_daily_reminder"/>
+<!--    <fragment-->
+<!--        android:id="@+id/nav_daily_reminders"-->
+<!--        android:name="com.example.jarvis.ui.daily_reminders.DailyRemindersFragment"-->
+<!--        android:label="@string/menu_daily_reminders"-->
+<!--        tools:layout="@layout/fragment_daily_reminder"/>-->
 
-    <fragment
-        android:id="@+id/nav_normal_reminders"
-        android:name="com.example.jarvis.ui.normal_reminders.NormalRemindersFragment"
-        android:label="@string/menu_normal_reminders"
-        tools:layout="@layout/fragment_normal_reminders"/>
+<!--    <fragment-->
+<!--        android:id="@+id/nav_normal_reminders"-->
+<!--        android:name="com.example.jarvis.ui.normal_reminders.NormalRemindersFragment"-->
+<!--        android:label="@string/menu_normal_reminders"-->
+<!--        tools:layout="@layout/fragment_normal_reminders"/>-->
 
     <fragment
         android:id="@+id/nav_view_reminders"

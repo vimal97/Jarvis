@@ -54,6 +54,18 @@ class SharedPreference(val context: Context) {
         editor.commit()
     }
 
+    fun pushProfileData(KEY_NAME: String, value: String){
+        var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis", MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString(KEY_NAME, value)
+        editor.commit()
+    }
+
+    fun getProfileData(KEY_NAME: String): String?{
+        var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis",MODE_PRIVATE)
+        return sharedPref.getString(KEY_NAME, null)
+    }
+
     fun getDailyReminderData(KEY_NAME: String): String? {
         var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis",MODE_PRIVATE)
         return sharedPref.getString(KEY_NAME, null)

@@ -120,7 +120,7 @@ class dashboard : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_expense, R.id.nav_credits,R.id.nav_debits,R.id.nav_analysis,R.id.nav_daily_reminders,R.id.nav_normal_reminders,R.id.nav_view_reminders
+                R.id.nav_home, R.id.nav_expense, R.id.nav_credits,R.id.nav_debits,R.id.nav_analysis,R.id.nav_view_reminders //R.id.nav_daily_reminders,R.id.nav_normal_reminders,
             ), drawerLayout
         )
 
@@ -441,5 +441,16 @@ class dashboard : AppCompatActivity() {
             Toast.makeText(applicationContext, "Normal Reminder Set", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this@dashboard, dashboard::class.java))
         }
+    }
+
+    fun showProfile(item: MenuItem) {
+        startActivity(Intent(applicationContext, EditProfile::class.java))
+    }
+
+    fun removeReminder(view: View) {
+        val gson = Gson()
+        val sharedPreference = SharedPreference(this)
+        val fetchedDailyReminders = sharedPreference.getDailyReminderData("DailyReminderList")
+        val fetchedNormalReminders = sharedPreference.getDailyReminderData("NormalReminderList")
     }
 }

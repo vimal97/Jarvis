@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jarvis">
 
-    <uses-permission android:name="android.permission.SET_ALARM"/>
-    
+    <uses-permission android:name="android.permission.SET_ALARM" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,9 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EditProfile"
+            android:parentActivityName=".dashboard"/>
         <activity
             android:name=".SearchExpenseActivity"
-            android:parentActivityName=".dashboard"/>
+            android:parentActivityName=".dashboard" />
         <activity
             android:name=".ViewTodaysExpense"
             android:parentActivityName=".dashboard" />
@@ -48,7 +50,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".ui.DailyNotificationReceiver"/>
+
+        <receiver android:name=".ui.DailyNotificationReceiver" />
     </application>
 
 </manifest>

@@ -32,15 +32,15 @@
 
     <item android:title="Reminders">
         <menu>
-            <item
-                android:id="@+id/nav_daily_reminders"
-                android:title="Add Daily Reminders"
-                android:icon="@drawable/add_reminder"></item>
-            <item
-                android:id="@+id/nav_normal_reminders"
-                android:icon="@drawable/add_reminder_1"
-                android:title="Add Normal Reminders"
-                ></item>
+<!--            <item-->
+<!--                android:id="@+id/nav_daily_reminders"-->
+<!--                android:title="Add Daily Reminders"-->
+<!--                android:icon="@drawable/add_reminder"></item>-->
+<!--            <item-->
+<!--                android:id="@+id/nav_normal_reminders"-->
+<!--                android:icon="@drawable/add_reminder_1"-->
+<!--                android:title="Add Normal Reminders"-->
+<!--                ></item>-->
             <item
                 android:id="@+id/nav_view_reminders"
                 android:icon="@drawable/checklist"
