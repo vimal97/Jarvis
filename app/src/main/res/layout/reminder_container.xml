@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/viewTask"
@@ -27,6 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/viewTask" />
 
     <ImageView
+        android:id="@+id/reminderClose"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="26dp"

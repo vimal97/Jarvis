@@ -360,7 +360,7 @@ class dashboard : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun addDailyReminder(view: View) {
         val task = findViewById<EditText>(R.id.daily_reminder_task).text.toString()
-        storeReminderData(true, DailyReminderData(task, dailyReminderTime, dailyReminderDays, ""),NormalReminderData("","","", false))
+        storeReminderData(true, DailyReminderData(task, dailyReminderTime, dailyReminderDays, "", "daily"),NormalReminderData("","","", false, ""))
         val calender: Calendar = Calendar.getInstance()
         calender.set(Calendar.HOUR_OF_DAY, dailyReminderHour)
         calender.set(Calendar.MINUTE, dailyReminderMinute)
@@ -375,7 +375,7 @@ class dashboard : AppCompatActivity() {
 
     fun addNormalReminder(view: View){
         val task = findViewById<EditText>(R.id.normal_reminder_task).text.toString()
-        storeReminderData(false, DailyReminderData("","","".split("|").toMutableList(),""),NormalReminderData(task, normalReminderDate, normalReminderTime, true))
+        storeReminderData(false, DailyReminderData("","","".split("|").toMutableList(),"", ""),NormalReminderData(task, normalReminderDate, normalReminderTime, true, "Normal"))
     }
 
     override fun onCreateDialog(id: Int): Dialog? { // TODO Auto-generated method stub
@@ -445,12 +445,5 @@ class dashboard : AppCompatActivity() {
 
     fun showProfile(item: MenuItem) {
         startActivity(Intent(applicationContext, EditProfile::class.java))
-    }
-
-    fun removeReminder(view: View) {
-        val gson = Gson()
-        val sharedPreference = SharedPreference(this)
-        val fetchedDailyReminders = sharedPreference.getDailyReminderData("DailyReminderList")
-        val fetchedNormalReminders = sharedPreference.getDailyReminderData("NormalReminderList")
     }
 }

@@ -49,7 +49,7 @@ class ViewRemindersFragment : Fragment() {
                 AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                     // onclick doesn't trigger anything
-                    val tempReminderData = ReminderData("","","")
+                    val tempReminderData = ReminderData("","","","")
                     var tempNReminderData: NormalReminderData
                     var tempDReminderData: DailyReminderData
                     if(reminderTypes[position] == "Normal"){
@@ -68,7 +68,7 @@ class ViewRemindersFragment : Fragment() {
                                 }
                             }
                         }
-                        reminderList = listOf(ReminderData("sample_normal","date","time"),ReminderData("sample1_normal","date1","time1"))
+                        //reminderList = listOf(ReminderData("sample_normal","date","time", "normal"),ReminderData("sample1_normal","date1","time1", "normal"))
                         Log.v("Test_Vimal",reminderList.toString())
                         recyclerView.adapter = ViewReminderAdapter(reminderList)
                         recyclerView.layoutManager = LinearLayoutManager(view.context)
@@ -90,7 +90,7 @@ class ViewRemindersFragment : Fragment() {
                                 }
                             }
                         }
-                        reminderList = listOf(ReminderData("sample_daily","date","time"),ReminderData("sample1_daily","date1","time1"))
+                        //reminderList = listOf(ReminderData("sample_daily","date","time", "daily"),ReminderData("sample1_daily","date1","time1", "daily"))
                         Log.v("Test_Vimal",reminderList.toString())
                         recyclerView.adapter = ViewReminderAdapter(reminderList)
                         recyclerView.layoutManager = LinearLayoutManager(view.context)

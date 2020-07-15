@@ -1,3 +1,3 @@
 package com.example.jarvis
 
-data class ReminderData(var task: String, var date: String, var time: String)
+data class ReminderData(var task: String, var date: String, var time: String, var type: String)
