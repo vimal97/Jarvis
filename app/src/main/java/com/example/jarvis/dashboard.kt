@@ -446,4 +446,8 @@ class dashboard : AppCompatActivity() {
     fun showProfile(item: MenuItem) {
         startActivity(Intent(applicationContext, EditProfile::class.java))
     }
+
+    fun secretNotes(item: MenuItem) {
+        startActivity(Intent(applicationContext, SecretNotes::class.java))
+    }
 }

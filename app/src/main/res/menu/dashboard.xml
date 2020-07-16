@@ -20,6 +20,12 @@
         android:onClick="clearExpense"
         app:showAsAction="never" />
     <item
+        android:id="@+id/secretNotes"
+        android:orderInCategory="107"
+        android:title="@string/secretNotes"
+        android:onClick="secretNotes"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/logout"
         android:orderInCategory="108"
         android:title="@string/logout"

@@ -12,6 +12,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="logout">Logout</string>
+    <string name="secretNotes">Secret Notes</string>
     <string name="clearExpenseText">Clear Expense for the month</string>
 
     <string name="menu_home">Home</string>

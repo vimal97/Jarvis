@@ -11,8 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditProfile"
-            android:parentActivityName=".dashboard"/>
+        <activity
+            android:name=".SecretNotes"
+            android:parentActivityName=".dashboard"></activity>
+        <activity
+            android:name=".EditProfile"
+            android:parentActivityName=".dashboard" />
         <activity
             android:name=".SearchExpenseActivity"
             android:parentActivityName=".dashboard" />
