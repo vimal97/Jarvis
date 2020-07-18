@@ -17,15 +17,17 @@ class SecretNotes : AppCompatActivity() {
         var sharedPreference = SharedPreference(this)
         var gson = Gson()
         var secretNotesListString = sharedPreference.getSecretNotesList("SecretNotes")
-        var secretNotesListJson = secretNotesListString?.split("|")
-        var secretNotesList: MutableList<SecretNoteData> = mutableListOf()
-        if (secretNotesListJson != null) {
-            for(i in secretNotesListJson){
-                secretNotesList.add(gson.fromJson(i, SecretNoteData::class.java))
+        if(secretNotesListString != null){
+            var secretNotesListJson = secretNotesListString.split("|")
+            var secretNotesList: MutableList<SecretNoteData> = mutableListOf()
+            if (secretNotesListJson != null) {
+                for(i in secretNotesListJson){
+                    secretNotesList.add(gson.fromJson(i, SecretNoteData::class.java))
+                }
             }
+            recyclerView.adapter = SecretNotesAdapter(secretNotesList)
+            recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+            recyclerView.setHasFixedSize(true)
         }
-        recyclerView.adapter = SecretNotesAdapter(secretNotesList)
-        recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        recyclerView.setHasFixedSize(true)
     }
 }
