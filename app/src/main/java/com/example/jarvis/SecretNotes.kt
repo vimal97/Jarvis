@@ -14,6 +14,9 @@ import java.util.*
 
 class SecretNotes : AppCompatActivity() {
 
+    lateinit var adapter: RecyclerView.Adapter<SecretNotesAdapter.SecretNotesHolder>
+    lateinit var secretNotesList: MutableList<SecretNoteData>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_secret_notes)
@@ -26,7 +29,7 @@ class SecretNotes : AppCompatActivity() {
         var secretNotesListString = sharedPreference.getSecretNotesList("SecretNotes")
         if(secretNotesListString != null){
             var secretNotesListJson = secretNotesListString.split("|")
-            var secretNotesList: MutableList<SecretNoteData> = mutableListOf()
+            secretNotesList = mutableListOf()
             if (secretNotesListJson != null) {
                 for(i in secretNotesListJson){
                     if(i != ""){
@@ -34,7 +37,8 @@ class SecretNotes : AppCompatActivity() {
                     }
                 }
             }
-            recyclerView.adapter = SecretNotesAdapter(secretNotesList)
+            adapter = SecretNotesAdapter(secretNotesList)
+            recyclerView.adapter = adapter
             recyclerView.layoutManager = LinearLayoutManager(applicationContext)
             recyclerView.setHasFixedSize(true)
         }
@@ -65,14 +69,12 @@ class SecretNotes : AppCompatActivity() {
                 sharedPreference.pushSecretNotesList("SecretNotes", secretNotesListString.joinToString("|"))
             }
         }
-        val secretNotesList = mutableListOf<SecretNoteData>()
-        for (i in secretNotesListString){
-            secretNotesList += gson.fromJson(i, SecretNoteData::class.java)
-        }
-        recyclerView.adapter = SecretNotesAdapter(secretNotesList)
-        recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        recyclerView.setHasFixedSize(true)
+//        for (i in secretNotesListString){
+//            secretNotesList += gson.fromJson(i, SecretNoteData::class.java)
+//        }
+        secretNotesList.add(secretNote)
+        adapter.notifyDataSetChanged()
+        Log.v("Test_Vimal", "New updates list : $secretNotesList")
         findViewById<EditText>(R.id.secretNote).setText("")
-        Log.v("Test_Vimal", secretDataJson)
     }
 }
