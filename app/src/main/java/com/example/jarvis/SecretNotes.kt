@@ -86,7 +86,7 @@ class SecretNotes : AppCompatActivity() {
         }
         secretNotesList.add(secretNote)
         adapter.notifyDataSetChanged()
-        Log.v("Test_Vimal", "New updates list : $secretNotesList")
+        Log.v("Test_Vimal", "New updated list : $secretNotesList")
         findViewById<EditText>(R.id.secretNote).setText("")
     }
 }

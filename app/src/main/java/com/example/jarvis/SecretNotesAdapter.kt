@@ -4,6 +4,7 @@ import android.app.PendingIntent.getActivity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,16 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import java.text.FieldPosition
 
 
 class SecretNotesAdapter(private val secretNotes: MutableList<SecretNoteData>): RecyclerView.Adapter<SecretNotesAdapter.SecretNotesHolder>() {
+
+    lateinit var removedItem: SecretNoteData
+    var removedPosition: Int = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SecretNotesHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.secret_notes_container, parent, false)
         return SecretNotesHolder(itemView)
@@ -42,8 +50,31 @@ class SecretNotesAdapter(private val secretNotes: MutableList<SecretNoteData>): 
     }
 
     fun removeItem(viewHolder: RecyclerView.ViewHolder){
+        removedItem = secretNotes[viewHolder.adapterPosition]
+        removedPosition = viewHolder.adapterPosition
+        Log.v("Test_Vimal", "Removed position is : $removedPosition")
         secretNotes.removeAt(viewHolder.adapterPosition)
-        notifyDataSetChanged()
+        notifyItemRemoved(viewHolder.adapterPosition)
+        var flag = false
+        Snackbar.make(viewHolder.itemView, "Item removed !!", Snackbar.LENGTH_LONG).setAction("UNDO"){
+            Log.v("Test_Vimal", "Before undo : $secretNotes")
+            secretNotes.add(removedPosition, removedItem)
+            Log.v("Test_Vimal", "After undo : $secretNotes")
+            notifyItemInserted(removedPosition)
+            flag = true
+        }.show()
+        if(!flag){
+            Log.v("Test_Vimal","Updated Data")
+            val sharedPreference: SharedPreference = SharedPreference(viewHolder.itemView.context)
+            val gson = Gson()
+            val secretNotesString = sharedPreference.getSecretNotesList("SecretNotes")
+            var secretNotesListString = mutableListOf<String>()
+            if(secretNotesString != null){
+                secretNotesListString = secretNotesString.split("|") as MutableList<String>
+                secretNotesListString.remove(gson.toJson(removedItem))
+                sharedPreference.pushSecretNotesList("SecretNotes", secretNotesListString.joinToString("|"))
+            }
+        }
 
     }
 
