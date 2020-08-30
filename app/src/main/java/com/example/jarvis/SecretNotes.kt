@@ -5,16 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_secret_notes.*
+import java.text.FieldPosition
 import java.text.SimpleDateFormat
 import java.util.*
 
 class SecretNotes : AppCompatActivity() {
 
-    lateinit var adapter: RecyclerView.Adapter<SecretNotesAdapter.SecretNotesHolder>
+    var adapter = SecretNotesAdapter(mutableListOf<SecretNoteData>())
     lateinit var secretNotesList: MutableList<SecretNoteData>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +24,7 @@ class SecretNotes : AppCompatActivity() {
         setContentView(R.layout.activity_secret_notes)
         supportActionBar?.title = "Your Secret Notes"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        var recyclerView = findViewById<RecyclerView>(R.id.secretNotesList)
+        var recyclerView = findViewById<RecyclerView>(R.id.secretNotesList1)
         var sharedPreference = SharedPreference(this)
 //        sharedPreference.pushSecretNotesList("SecretNotes","")
         var gson = Gson()
@@ -42,10 +44,23 @@ class SecretNotes : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(applicationContext)
             recyclerView.setHasFixedSize(true)
         }
+        //drag delete option
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, position: Int) {
+                (adapter as SecretNotesAdapter).removeItem(viewHolder)
+            }
+
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(secretNotesList1)
     }
 
     fun addSecretNote(view: View) {
-        var recyclerView = findViewById<RecyclerView>(R.id.secretNotesList)
         val calendar = Calendar.getInstance();
         val year = calendar.get(Calendar.YEAR);
         val month = calendar.get(Calendar.MONTH) + 1;
@@ -69,9 +84,6 @@ class SecretNotes : AppCompatActivity() {
                 sharedPreference.pushSecretNotesList("SecretNotes", secretNotesListString.joinToString("|"))
             }
         }
-//        for (i in secretNotesListString){
-//            secretNotesList += gson.fromJson(i, SecretNoteData::class.java)
-//        }
         secretNotesList.add(secretNote)
         adapter.notifyDataSetChanged()
         Log.v("Test_Vimal", "New updates list : $secretNotesList")

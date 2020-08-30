@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 
-class SecretNotesAdapter(private val secretNotes: List<SecretNoteData>): RecyclerView.Adapter<SecretNotesAdapter.SecretNotesHolder>() {
+class SecretNotesAdapter(private val secretNotes: MutableList<SecretNoteData>): RecyclerView.Adapter<SecretNotesAdapter.SecretNotesHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SecretNotesHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.secret_notes_container, parent, false)
         return SecretNotesHolder(itemView)
@@ -39,6 +39,12 @@ class SecretNotesAdapter(private val secretNotes: List<SecretNoteData>): Recycle
                 clipboard.setPrimaryClip(clipData)
             }
         }
+    }
+
+    fun removeItem(viewHolder: RecyclerView.ViewHolder){
+        secretNotes.removeAt(viewHolder.adapterPosition)
+        notifyDataSetChanged()
+
     }
 
     class SecretNotesHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
