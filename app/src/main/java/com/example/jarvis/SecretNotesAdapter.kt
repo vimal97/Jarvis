@@ -50,6 +50,8 @@ class SecretNotesAdapter(private val secretNotes: MutableList<SecretNoteData>): 
     }
 
     fun removeItem(viewHolder: RecyclerView.ViewHolder){
+        val sharedPreference: SharedPreference = SharedPreference(viewHolder.itemView.context)
+        val gson = Gson()
         removedItem = secretNotes[viewHolder.adapterPosition]
         removedPosition = viewHolder.adapterPosition
         Log.v("Test_Vimal", "Removed position is : $removedPosition")
@@ -57,16 +59,16 @@ class SecretNotesAdapter(private val secretNotes: MutableList<SecretNoteData>): 
         notifyItemRemoved(viewHolder.adapterPosition)
         var flag = false
         Snackbar.make(viewHolder.itemView, "Item removed !!", Snackbar.LENGTH_LONG).setAction("UNDO"){
-            Log.v("Test_Vimal", "Before undo : $secretNotes")
             secretNotes.add(removedPosition, removedItem)
-            Log.v("Test_Vimal", "After undo : $secretNotes")
             notifyItemInserted(removedPosition)
+            var secretNotesStringList = mutableListOf<String>()
+            for(i in secretNotes){
+                secretNotesStringList.add(gson.toJson(i))
+            }
+            sharedPreference.pushSecretNotesList("SecretNotes", secretNotesStringList.joinToString("|"))
             flag = true
         }.show()
         if(!flag){
-            Log.v("Test_Vimal","Updated Data")
-            val sharedPreference: SharedPreference = SharedPreference(viewHolder.itemView.context)
-            val gson = Gson()
             val secretNotesString = sharedPreference.getSecretNotesList("SecretNotes")
             var secretNotesListString = mutableListOf<String>()
             if(secretNotesString != null){
