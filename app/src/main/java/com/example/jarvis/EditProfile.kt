@@ -33,20 +33,20 @@ class EditProfile : AppCompatActivity() {
                 findViewById<EditText>(R.id.profileName).hint = "Enter the name"
                 findViewById<EditText>(R.id.profileEmail).hint = "Enter your email Id"
                 findViewById<EditText>(R.id.profileCompany).hint = "Enter your company name"
-                findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.circleImageView).background = resources.getDrawable(R.drawable.user_icon)
+//                findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.circleImageView).setBackgroundResource(R.drawable.profile_image)
             }
             else{
                 findViewById<EditText>(R.id.profileName).setText(temp.name)
                 findViewById<EditText>(R.id.profileEmail).setText(temp.email)
                 findViewById<EditText>(R.id.profileCompany).setText(temp.company)
-                findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.circleImageView).setBackgroundResource(R.drawable.user_icon)
+//                findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.circleImageView).setBackgroundResource(R.drawable.profile_image)
             }
         }
         else{
             findViewById<EditText>(R.id.profileName).hint = "Enter the name"
             findViewById<EditText>(R.id.profileEmail).hint = "Enter your email Id"
             findViewById<EditText>(R.id.profileCompany).hint = "Enter your company name"
-            findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.circleImageView).background = resources.getDrawable(R.drawable.user_icon)
+//            findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.circleImageView).setBackgroundResource(R.drawable.profile_image)
         }
     }
 
