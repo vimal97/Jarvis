@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.jarvis.ui.credits.CreditFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.credit_container.view.*
+import java.lang.Exception
 
 
 class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Adapter<CreditAdapter.CreditViewHolder>() {
@@ -56,7 +57,7 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
 
             })
             .setPositiveButton("Update", DialogInterface.OnClickListener(){
-                dialogInterface: DialogInterface, i : Int ->
+                    _: DialogInterface, _: Int ->
 
                 var gson = Gson()
                 var sharedPreference = SharedPreference(context)
@@ -69,22 +70,30 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
                     //remove the entry
                     var fetchedCreditDataListIterator: CreditData
                     if (fetchedCreditDataList != null) {
-                        for (i in 0 until fetchedCreditDataList.size) {
-                            if(fetchedCreditDataList[i] != ""){
-                                fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
-                                if(fetchedCreditDataListIterator.id == data.id){
-                                    fetchedCreditDataList.removeAt(i)
-                                    sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
+                        Log.v("Test_Vimal", "trying to remove")
+                        for (i in 1 until fetchedCreditDataList.size - 1) {
+                            try {
+                                Log.v("Test_Vimal", "i : $i")
+                                if(fetchedCreditDataList[i] != ""){
+                                    fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
+                                    if(fetchedCreditDataListIterator.id == data.id){
+                                        fetchedCreditDataList.removeAt(i)
+                                        sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
+                                    }
                                 }
+                            }
+                            catch (e: Exception){
+                                Log.v("Test_Vimal", e.toString())
+                            }
                             }
                         }
                     }
-                }
                 else{
                     //just update the value
+                    Log.v("Test_Vimal", "trying to update")
                     var fetchedCreditDataListIterator: CreditData
                     if (fetchedCreditDataList != null) {
-                        for( i in 0 until fetchedCreditDataList.size){
+                        for( i in 1 until fetchedCreditDataList.size - 1){
                             if(fetchedCreditDataList[i] != ""){
                                 fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
                                 if(fetchedCreditDataListIterator.id == data.id){
@@ -122,13 +131,14 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
             }
         }
         fetchedDataList = tempList
+        Log.v("Test_Vimal", "Data to be shown : $tempList")
 
         if (fetchedDataList != null) {
             for ( i in fetchedDataList.indices){
                 temp = gson.fromJson(fetchedDataList[i],CreditData::class.java)
-                Log.v("Test_Vimal","Temp value : " + temp.toString() + " and holder id is : " + holder.id)
+//                Log.v("Test_Vimal","Temp value : " + temp.toString() + " and holder id is : " + holder.id)
                 if(temp.id == creditList[position].id){
-                    Log.v("Test_Vimal","Identified data is : " + temp)
+//                    Log.v("Test_Vimal","Identified data is : " + temp)
                     holder.name.text = temp.name
                     holder.amount.text = "\u20B9 " + temp.amount
                     holder.dueDate.text = "Due date : " + temp.return_date

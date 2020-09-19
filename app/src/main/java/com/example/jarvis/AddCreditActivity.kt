@@ -71,6 +71,10 @@ class AddCreditActivity : AppCompatActivity() {
         dateView.text = StringBuilder().append("Chosen Date : ").append(expectedDate)
     }
 
+    fun generateRandomString(length: Int): String{
+        var allowedChars = ('A'..'Z') + ('a'..'z')
+        return (1..length).map { allowedChars.random() }.joinToString("")
+    }
 
     fun addCredit(view: View) {
         var amount = findViewById<EditText>(R.id.credit_amount).text.toString()
@@ -80,15 +84,15 @@ class AddCreditActivity : AppCompatActivity() {
         var gson = Gson()
         var creditList = sharedPreference.getDebitData("CreditList")
         if(creditList == null){
-            var creditListArray = "".split("|").toList()
-            var id: String = (creditListArray.size + 1).toString()
+            var creditListArray = listOf<String>()
+            var id: String = "1" + generateRandomString(5)
             var creditData = CreditData(id, name,amount,today,expectedDate,reason)
             creditListArray += gson.toJson(creditData)
             sharedPreference.pushCreditData("CreditList",creditListArray.joinToString("|"))
         }
         else{
             var creditListArray = creditList.split("|").toList()
-            var id: String = (creditListArray.size + 1).toString()
+            var id: String = (creditListArray.size + 1).toString() + generateRandomString(5)
             var creditData = CreditData(id, name,amount,today,expectedDate,reason)
             creditListArray += gson.toJson(creditData)
             sharedPreference.pushCreditData("CreditList",creditListArray.joinToString("|"))
