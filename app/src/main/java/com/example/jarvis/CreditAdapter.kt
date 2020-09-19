@@ -71,7 +71,8 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
                     var fetchedCreditDataListIterator: CreditData
                     if (fetchedCreditDataList != null) {
                         Log.v("Test_Vimal", "trying to remove")
-                        for (i in 1 until fetchedCreditDataList.size - 1) {
+                        for (j in fetchedCreditDataList) {
+                            val i = fetchedCreditDataList.indexOf(j)
                             try {
                                 Log.v("Test_Vimal", "i : $i")
                                 if(fetchedCreditDataList[i] != ""){
