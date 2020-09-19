@@ -64,9 +64,7 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
                 val fetchedCreditDataConverted = mutableListOf<CreditData>()
                 var sharedPreference = SharedPreference(context)
                 var fetchedCreditData = sharedPreference.getCreditData("CreditList")
-                Log.v("Test_Vimal","Fetched data : " + fetchedCreditData.toString())
                 var fetchedCreditDataList = fetchedCreditData?.split("|")?.toList()?.toMutableList()
-                Log.v("Test_Vimal","Fetched data -> list converted : " + fetchedCreditDataList)
 
                 if(view.findViewById<CheckBox>(R.id.paidfull_credit).isChecked){
                     //remove the entry
@@ -76,10 +74,9 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
                         for (j in fetchedCreditDataList) {
                             val i = fetchedCreditDataList.indexOf(j)
                             try {
-                                Log.v("Test_Vimal", "i : $i")
                                 if(fetchedCreditDataList[i] != ""){
                                     fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
-                                    fetchedCreditDataConverted += fetchedCreditDataListIterator
+
                                     if(fetchedCreditDataListIterator.id == data.id){
                                         fetchedCreditDataList.removeAt(i)
                                         sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
@@ -100,7 +97,6 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
                         for( i in 1 until fetchedCreditDataList.size - 1){
                             if(fetchedCreditDataList[i] != ""){
                                 fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
-                                fetchedCreditDataConverted += fetchedCreditDataListIterator
                                 if(fetchedCreditDataListIterator.id == data.id){
                                     fetchedCreditDataListIterator.amount = view.findViewById<TextView>(R.id.text_amount_credit_value).text.toString()
                                     holderUpdate = fetchedCreditDataListIterator
@@ -110,12 +106,14 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
                                 }
                             }
                         }
-                        Log.v("Test_Vimal","Fetched data -> after updation : " + fetchedCreditDataList)
                         sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
                     }
                 }
                 val recyclerView = parentActivityView.findViewById<RecyclerView>(R.id.recycler_viewer_credits)
-
+                for(i in fetchedCreditDataList!!){
+                    fetchedCreditDataConverted += gson.fromJson(i, CreditData::class.java)
+                }
+                Log.v("Test_Vimal", fetchedCreditDataConverted.toString())
                 recyclerView.adapter = CreditAdapter(fetchedCreditDataConverted, parentActivityView)
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.setHasFixedSize(true)
@@ -134,21 +132,18 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
         var temp: CreditData
         var tempList = listOf<String>()
         if (fetchedDataList != null) {
-            for(i in 0..fetchedDataList.size - 1){
+            for(i in fetchedDataList.indices){
                 if(fetchedDataList[i] != ""){
                     tempList += fetchedDataList[i]
                 }
             }
         }
         fetchedDataList = tempList
-        Log.v("Test_Vimal", "Data to be shown : $tempList")
 
         if (fetchedDataList != null) {
             for ( i in fetchedDataList.indices){
                 temp = gson.fromJson(fetchedDataList[i],CreditData::class.java)
-//                Log.v("Test_Vimal","Temp value : " + temp.toString() + " and holder id is : " + holder.id)
                 if(temp.id == creditList[position].id){
-//                    Log.v("Test_Vimal","Identified data is : " + temp)
                     holder.name.text = temp.name
                     holder.amount.text = "\u20B9 " + temp.amount
                     holder.dueDate.text = "Due date : " + temp.return_date
@@ -166,7 +161,6 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
             for ( i in creditList){
                 if(i.id == holder.id){
                     openDialog(view.context,i)
-//                    holder.amount.text = "\u20B9 " +  holderUpdate.amount
                 }
             }
         }
