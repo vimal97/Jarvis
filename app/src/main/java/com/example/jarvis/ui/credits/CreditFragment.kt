@@ -50,7 +50,7 @@ class CreditFragment : Fragment() {
                 this.creditList.plusAssign(gson.fromJson(x,CreditData::class.java))
             }
         }
-        recyclerView.adapter = CreditAdapter(this.creditList)
+        recyclerView.adapter = CreditAdapter(this.creditList, view1)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.setHasFixedSize(true)
         return view1

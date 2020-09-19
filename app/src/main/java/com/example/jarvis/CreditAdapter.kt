@@ -12,6 +12,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jarvis.ui.credits.CreditFragment
 import com.google.gson.Gson
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.credit_container.view.*
 import java.lang.Exception
 
 
-class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Adapter<CreditAdapter.CreditViewHolder>() {
+class CreditAdapter(private val creditList: List<CreditData>, private val parentActivityView: View) : RecyclerView.Adapter<CreditAdapter.CreditViewHolder>() {
 
     private lateinit var holderUpdate: CreditData
 
@@ -60,6 +61,7 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
                     _: DialogInterface, _: Int ->
 
                 var gson = Gson()
+                val fetchedCreditDataConverted = mutableListOf<CreditData>()
                 var sharedPreference = SharedPreference(context)
                 var fetchedCreditData = sharedPreference.getCreditData("CreditList")
                 Log.v("Test_Vimal","Fetched data : " + fetchedCreditData.toString())
@@ -77,6 +79,7 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
                                 Log.v("Test_Vimal", "i : $i")
                                 if(fetchedCreditDataList[i] != ""){
                                     fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
+                                    fetchedCreditDataConverted += fetchedCreditDataListIterator
                                     if(fetchedCreditDataListIterator.id == data.id){
                                         fetchedCreditDataList.removeAt(i)
                                         sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
@@ -97,6 +100,7 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
                         for( i in 1 until fetchedCreditDataList.size - 1){
                             if(fetchedCreditDataList[i] != ""){
                                 fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
+                                fetchedCreditDataConverted += fetchedCreditDataListIterator
                                 if(fetchedCreditDataListIterator.id == data.id){
                                     fetchedCreditDataListIterator.amount = view.findViewById<TextView>(R.id.text_amount_credit_value).text.toString()
                                     holderUpdate = fetchedCreditDataListIterator
@@ -110,6 +114,11 @@ class CreditAdapter(private val creditList: List<CreditData>) : RecyclerView.Ada
                         sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
                     }
                 }
+                val recyclerView = parentActivityView.findViewById<RecyclerView>(R.id.recycler_viewer_credits)
+
+                recyclerView.adapter = CreditAdapter(fetchedCreditDataConverted, parentActivityView)
+                recyclerView.layoutManager = LinearLayoutManager(context)
+                recyclerView.setHasFixedSize(true)
             })
         builder.create().show()
     }
