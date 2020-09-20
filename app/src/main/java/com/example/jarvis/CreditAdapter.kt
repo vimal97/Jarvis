@@ -71,12 +71,11 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
                     var fetchedCreditDataListIterator: CreditData
                     if (fetchedCreditDataList != null) {
                         Log.v("Test_Vimal", "trying to remove")
-                        for (j in fetchedCreditDataList) {
-                            val i = fetchedCreditDataList.indexOf(j)
+                        for (i in 1 until fetchedCreditDataList.size) {
+//                            val i = fetchedCreditDataList.indexOf(j)
                             try {
                                 if(fetchedCreditDataList[i] != ""){
                                     fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
-
                                     if(fetchedCreditDataListIterator.id == data.id){
                                         fetchedCreditDataList.removeAt(i)
                                         sharedPreference.pushCreditData("CreditList",fetchedCreditDataList.joinToString("|"))
@@ -94,7 +93,7 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
                     Log.v("Test_Vimal", "trying to update")
                     var fetchedCreditDataListIterator: CreditData
                     if (fetchedCreditDataList != null) {
-                        for( i in 1 until fetchedCreditDataList.size - 1){
+                        for( i in 1 until fetchedCreditDataList.size){
                             if(fetchedCreditDataList[i] != ""){
                                 fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)
                                 if(fetchedCreditDataListIterator.id == data.id){
@@ -110,10 +109,12 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
                     }
                 }
                 val recyclerView = parentActivityView.findViewById<RecyclerView>(R.id.recycler_viewer_credits)
-                for(i in fetchedCreditDataList!!){
-                    fetchedCreditDataConverted += gson.fromJson(i, CreditData::class.java)
+                if (fetchedCreditDataList != null) {
+                    for(i in 1 until fetchedCreditDataList.size){
+                        fetchedCreditDataConverted += gson.fromJson(fetchedCreditDataList?.get(i), CreditData::class.java)
+                    }
                 }
-                Log.v("Test_Vimal", fetchedCreditDataConverted.toString())
+                Log.v("Test_Vimal", "Data : $fetchedCreditDataList")
                 recyclerView.adapter = CreditAdapter(fetchedCreditDataConverted, parentActivityView)
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.setHasFixedSize(true)
