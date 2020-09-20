@@ -54,6 +54,11 @@ class AddDebitActivity : AppCompatActivity() {
         } else null
     }
 
+    fun generateRandomString(length: Int): String{
+        var allowedChars = ('A'..'Z') + ('a'..'z')
+        return (1..length).map { allowedChars.random() }.joinToString("")
+    }
+
     private val myDateListener =
         DatePickerDialog.OnDateSetListener { arg0, arg1, arg2, arg3 ->
             // TODO Auto-generated method stub
@@ -77,15 +82,15 @@ class AddDebitActivity : AppCompatActivity() {
         var gson = Gson()
         if(debitList == null){
             var debitListArray = "".split("|").toList()
-            var id = debitListArray.size + 1
-            var debitData = DebitData(id.toString(),name,amount,today,expectedDate,reason)
+            var id = (debitListArray.size + 1).toString() + generateRandomString(5)
+            var debitData = DebitData(id,name,amount,today,expectedDate,reason)
             debitListArray += gson.toJson(debitData)
             sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
         }
         else{
             var debitListArray = debitList.split("|").toList()
-            var id = debitListArray.size + 1
-            var debitData = DebitData(id.toString(),name,amount,today,expectedDate,reason)
+            var id = (debitListArray.size + 1).toString() + generateRandomString(5)
+            var debitData = DebitData(id,name,amount,today,expectedDate,reason)
             debitListArray += gson.toJson(debitData)
             sharedPreference.pushDebitData("DebitList",debitListArray.joinToString("|"))
         }

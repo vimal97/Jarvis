@@ -11,12 +11,14 @@ import android.widget.CheckBox
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jarvis.ui.debits.DebitFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.debit_container.view.*
+import java.lang.Exception
 
-class DebitAdapter(private val debitList: List<DebitData>) : RecyclerView.Adapter<DebitAdapter.DebitViewHolder>() {
+class DebitAdapter(private val debitList: List<DebitData>, private val parentActivityView: View) : RecyclerView.Adapter<DebitAdapter.DebitViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebitViewHolder {
 
@@ -55,45 +57,58 @@ class DebitAdapter(private val debitList: List<DebitData>) : RecyclerView.Adapte
                     dialogInterface: DialogInterface, i : Int ->
                 var gson = Gson()
                 var sharedPreference = SharedPreference(context)
+                val fetchedDebitDataListConverted = mutableListOf<DebitData>()
                 var fetchedDebitData = sharedPreference.getCreditData("DebitList")
-                Log.v("Test_Vimal","Fetched data : " + fetchedDebitData.toString())
                 var fetchedDebitDataList = fetchedDebitData?.split("|")?.toList()?.toMutableList()
-                Log.v("Test_Vimal","Fetched data -> list converted : " + fetchedDebitDataList)
-                if(view.findViewById<CheckBox>(R.id.paidfull_debit).isChecked){
-                    //remove the entry
-                    var fetchedDebitDataListIterator: DebitData
-                    if (fetchedDebitDataList != null) {
-                        for( i in 0 until fetchedDebitDataList.size){
-                            if(fetchedDebitDataList[i] != ""){
-                                fetchedDebitDataListIterator = gson.fromJson(fetchedDebitDataList[i],DebitData::class.java)
-                                if(fetchedDebitDataListIterator.id == data.id){
-                                    fetchedDebitDataList.removeAt(i)
-                                    sharedPreference.pushCreditData("DebitList",fetchedDebitDataList.joinToString("|"))
+                try{
+                    if(view.findViewById<CheckBox>(R.id.paidfull_debit).isChecked){
+                        //remove the entry
+                        var fetchedDebitDataListIterator: DebitData
+                        if (fetchedDebitDataList != null) {
+                            for( i in 1 until fetchedDebitDataList.size){
+                                Log.v("Test_Vimal", "$i")
+                                if(fetchedDebitDataList[i] != ""){
+                                    fetchedDebitDataListIterator = gson.fromJson(fetchedDebitDataList[i],DebitData::class.java)
+                                    if(fetchedDebitDataListIterator.id == data.id){
+                                        fetchedDebitDataList.removeAt(i)
+                                        sharedPreference.pushCreditData("DebitList",fetchedDebitDataList.joinToString("|"))
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                else{
-                    //update the value
-                    var fetchedDebitDataListIterator: DebitData
-                    if (fetchedDebitDataList != null) {
-                        for( i in 0 until fetchedDebitDataList.size){
-                            if(fetchedDebitDataList[i] != ""){
-                                fetchedDebitDataListIterator = gson.fromJson(fetchedDebitDataList[i],DebitData::class.java)
-                                if(fetchedDebitDataListIterator.id == data.id){
-                                    fetchedDebitDataListIterator.amount = view.findViewById<TextView>(R.id.text_amount_debit_value).text.toString()
-                                    holderUpdate = fetchedDebitDataListIterator
-                                    fetchedDebitDataList?.set(i,
-                                        gson.toJson(fetchedDebitDataListIterator)
-                                    )
+                    else{
+                        //update the value
+                        var fetchedDebitDataListIterator: DebitData
+                        if (fetchedDebitDataList != null) {
+                            for( i in 1 until fetchedDebitDataList.size){
+                                if(fetchedDebitDataList[i] != ""){
+                                    fetchedDebitDataListIterator = gson.fromJson(fetchedDebitDataList[i],DebitData::class.java)
+                                    if(fetchedDebitDataListIterator.id == data.id){
+                                        fetchedDebitDataListIterator.amount = view.findViewById<TextView>(R.id.text_amount_debit_value).text.toString()
+                                        holderUpdate = fetchedDebitDataListIterator
+                                        fetchedDebitDataList?.set(i,
+                                            gson.toJson(fetchedDebitDataListIterator)
+                                        )
+                                    }
                                 }
                             }
+                            sharedPreference.pushCreditData("DebitList",fetchedDebitDataList.joinToString("|"))
                         }
-                        sharedPreference.pushCreditData("DebitList",fetchedDebitDataList.joinToString("|"))
-                        Log.v("Test_Vimal","Fetched data -> after updation : " + fetchedDebitDataList)
                     }
                 }
+                catch (e: Exception){
+                    Log.v("Test_Vimal", e.toString())
+                }
+                val recyclerView = parentActivityView.findViewById<RecyclerView>(R.id.recycler_viewer_debits)
+                if(fetchedDebitDataList != null){
+                    for(i in 1 until fetchedDebitDataList.size){
+                        fetchedDebitDataListConverted += gson.fromJson(fetchedDebitDataList[i], DebitData::class.java)
+                    }
+                }
+                recyclerView.adapter = DebitAdapter(fetchedDebitDataListConverted, parentActivityView)
+                recyclerView.layoutManager = LinearLayoutManager(context)
+                recyclerView.setHasFixedSize(true)
             })
         builder.create().show()
     }

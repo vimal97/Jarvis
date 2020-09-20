@@ -72,7 +72,6 @@ class CreditAdapter(private val creditList: List<CreditData>, private val parent
                     if (fetchedCreditDataList != null) {
                         Log.v("Test_Vimal", "trying to remove")
                         for (i in 1 until fetchedCreditDataList.size) {
-//                            val i = fetchedCreditDataList.indexOf(j)
                             try {
                                 if(fetchedCreditDataList[i] != ""){
                                     fetchedCreditDataListIterator = gson.fromJson(fetchedCreditDataList[i],CreditData::class.java)

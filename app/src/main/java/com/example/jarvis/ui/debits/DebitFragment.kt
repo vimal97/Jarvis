@@ -73,7 +73,7 @@ class DebitFragment : Fragment() {
                 debitList += gson.fromJson(x,DebitData::class.java)
             }
         }
-        recyclerView.adapter = DebitAdapter(debitList)
+        recyclerView.adapter = DebitAdapter(debitList, view)
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.setHasFixedSize(true)
         return view
