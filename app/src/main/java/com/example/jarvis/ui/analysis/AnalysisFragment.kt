@@ -79,8 +79,13 @@ class AnalysisFragment : Fragment() {
                                 finalDataValues += tempJson.amount.toInt()
                             }
                             else{
-                                finalDataKeys += "Others"
-                                finalDataValues += tempJson.amount.toInt()
+                                if(finalDataKeys.indexOf("Others") < 0){
+                                    finalDataKeys += "Others"
+                                    finalDataValues += tempJson.amount.toInt()
+                                }
+                                else{
+                                    finalDataValues[finalDataKeys.indexOf("Others")] += tempJson.amount.toInt()
+                                }
                             }
                         }
                         else{
