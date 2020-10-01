@@ -54,6 +54,8 @@ class SearchExpenseActivity : AppCompatActivity() {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        findViewById<ConstraintLayout>(R.id.chooseDate).visibility = View.VISIBLE
     }
 
     fun chooseDate(view: View){
@@ -68,6 +70,7 @@ class SearchExpenseActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.searchExpenseRecyclerView)
         val sharedPreference = SharedPreference(this)
         findViewById<ConstraintLayout>(R.id.expenseNotFound).visibility = View.GONE
+        findViewById<ConstraintLayout>(R.id.chooseDate).visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
         //obtain the date for searching and it is saved to today
         Log.v("Test_Vimal","Searching for ExpenseList_$expectedDate")
@@ -87,6 +90,7 @@ class SearchExpenseActivity : AppCompatActivity() {
             else{
                 //display data not found message
                 recyclerView.visibility = View.GONE
+                findViewById<ConstraintLayout>(R.id.chooseDate).visibility = View.GONE
                 findViewById<ConstraintLayout>(R.id.expenseNotFound).visibility = View.VISIBLE
             }
         }

@@ -9,7 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchExpenseRecyclerView"
         android:layout_width="325dp"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:layout_marginTop="70dp"
         android:background="@drawable/boarder"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,6 +67,41 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"></TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chooseDate"
+        android:layout_width="242dp"
+        android:layout_height="240dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchDate"
+        app:layout_constraintVertical_bias="0.299"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/searchlens" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select a date to view your expense"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"></TextView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
