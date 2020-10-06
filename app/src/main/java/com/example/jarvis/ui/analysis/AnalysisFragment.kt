@@ -66,6 +66,7 @@ class AnalysisFragment : Fragment() {
         for (i in 1..day){
             todaysTotal = 0F
             temp = sharedPreference.getExpenseData("ExpenseList_$i/$month/$year").toString()
+            Log.v("Test_Vimal", "Data found on ExpenseList_$i/$month/$year : $temp")
             thisMonthExpense.add(temp)
             if(temp != "null"){
                 Log.v("Test_Vimal","Value for pie ExpenseList_$i/$month/$year is : $temp")

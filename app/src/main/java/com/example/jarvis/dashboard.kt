@@ -210,9 +210,11 @@ class dashboard : AppCompatActivity() {
         val sharedPreference = SharedPreference(this)
         var temp = ""
         for (i in 1..day){
-            temp = sharedPreference.getExpenseData("ExpenseList_$today").toString()
+            temp = sharedPreference.getExpenseData("ExpenseList_$i/$month/$year").toString()
             if(!(temp == "" || temp == null)){
-                sharedPreference.pushExpenseData("ExpenseList_$today","")
+                Log.v("Test_Vimal", "Found data on ExpenseList_$i/$month/$year : $temp")
+                sharedPreference.pushExpenseData("ExpenseList_$i/$month/$year","")
+                Log.v("Test_Vimal", "Deleting data on ExpenseList_$i/$month/$year : " + sharedPreference.getExpenseData("ExpenseList_$i/$month/$year").toString())
             }
         }
         Toast.makeText(this@dashboard,"Successfully cleared expense data",Toast.LENGTH_SHORT).show()
