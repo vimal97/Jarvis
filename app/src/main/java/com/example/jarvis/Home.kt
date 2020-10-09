@@ -1,12 +1,16 @@
 package com.example.jarvis
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -15,6 +19,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -50,42 +58,52 @@ class Home : AppCompatActivity() {
             }
         }
 
-        val biometricPrompt =
-            BiometricPrompt(activity, executor, object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationError(
-                    errorCode: Int,
-                    errString: CharSequence
-                ) {
-                    super.onAuthenticationError(errorCode, errString)
-                    runOnUiThread {
-                        if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) { // user clicked negative button
-                            Toast.makeText(applicationContext, "You can't skip this step", Toast.LENGTH_SHORT).show()
-                        } else {  // Called when an unrecoverable error has been encountered and the operation is complete.
-                            Toast.makeText(applicationContext, "Something unexpected happen, try again", Toast.LENGTH_SHORT).show()
+        //check if new user and obtain PIN if it is
+        val sharedPreference = SharedPreference(this)
+        val pass = sharedPreference.getLoginCredentials()
+        if(pass == "" || pass == null || pass == "null"){
+            //ask for setting the login PIN
+            Log.v("Test_Vimal", "Password : $pass")
+            changePin()
+        }
+        else{
+            val biometricPrompt =
+                BiometricPrompt(activity, executor, object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(
+                        errorCode: Int,
+                        errString: CharSequence
+                    ) {
+                        super.onAuthenticationError(errorCode, errString)
+                        runOnUiThread {
+                            if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) { // user clicked negative button
+                                Toast.makeText(applicationContext, "You can't skip this step", Toast.LENGTH_SHORT).show()
+                            } else {  // Called when an unrecoverable error has been encountered and the operation is complete.
+                                Toast.makeText(applicationContext, "Something unexpected happen, try again", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
-                }
 
-                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    super.onAuthenticationSucceeded(result)
-                    speakWishMessage(true)
-                    startActivity(Intent(this@Home, dashboard::class.java))
-                }
+                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        speakWishMessage(true)
+                        startActivity(Intent(this@Home, dashboard::class.java))
+                    }
 
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                    //Called when a biometric is valid but not recognized.
-                    speakWishMessage(false)
-                }
-            })
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                        //Called when a biometric is valid but not recognized.
+                        speakWishMessage(false)
+                    }
+                })
 
-        val promptInfo = PromptInfo.Builder()
-            .setTitle("Let me first verify its you")
-            .setSubtitle("Swipe your finger across the sensor")
-            .setNegativeButtonText("Cancel")
-            .build()
+            val promptInfo = PromptInfo.Builder()
+                .setTitle("Let me first verify its you")
+                .setSubtitle("Swipe your finger across the sensor")
+                .setNegativeButtonText("Cancel")
+                .build()
 
-        biometricPrompt.authenticate(promptInfo)
+            biometricPrompt.authenticate(promptInfo)
+        }
     }
 
     private fun login() {
@@ -105,6 +123,30 @@ class Home : AppCompatActivity() {
             Toast.makeText(applicationContext, "Please set the PIN before login !!", Toast.LENGTH_LONG).show()
             Log.v("Test_Vimal", "Credentials doesn't exist")
         }
+    }
+
+    private fun changePin() {
+        var  builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        val pinview = LayoutInflater.from(applicationContext).inflate(R.layout.setauthpin, null, false)
+        builder.setView(pinview)
+            .setNegativeButton("Cancel", DialogInterface.OnClickListener(){
+                    dialigInterface: DialogInterface, i : Int ->
+                Log.v("Test_Vimal", "PIN Setting cancelled")
+                Toast.makeText(applicationContext, "You cannot continue without setting PIN.", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(applicationContext, Home::class.java))
+            })
+            .setPositiveButton("Ok", DialogInterface.OnClickListener(){
+                    _: DialogInterface, _: Int ->
+                val newPin = pinview.findViewById<EditText>(R.id.pin).text.toString()
+                if(newPin != ""){
+                    val sharedPreference = SharedPreference(this)
+                    sharedPreference.setLoginCredentials(newPin)
+                    Log.v("Test_Vimal", "PIN Added")
+                    Toast.makeText(applicationContext, "PIN added successfully", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(applicationContext, dashboard::class.java))
+                }
+            })
+        builder.create().show()
     }
 
     private fun speakWishMessage(value: Boolean){

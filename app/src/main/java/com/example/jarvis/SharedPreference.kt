@@ -110,4 +110,11 @@ class SharedPreference(val context: Context) {
         var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis",MODE_PRIVATE)
         return sharedPref.getString("Jarvis_Pass", null)
     }
+
+    fun setLoginCredentials(PASS: String){
+        var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis", MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString("Jarvis_Pass", PASS)
+        Log.v("Test_Vimal", "Received pass is $PASS and Added pass is : " + sharedPref.getString("Jarvis_Pass", null))
+    }
 }
