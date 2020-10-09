@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Jarvis</string>
     <string name="swipe_message">Swipe your finger</string>
+    <string name="pin_message">Enter the PIN</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_dashboard">dashboard</string>

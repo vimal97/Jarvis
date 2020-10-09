@@ -1,9 +1,15 @@
 package com.example.jarvis
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
@@ -12,6 +18,7 @@ import androidx.fragment.app.FragmentActivity
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import kotlin.system.exitProcess
 
 
 class Home : AppCompatActivity() {
@@ -32,6 +39,16 @@ class Home : AppCompatActivity() {
         } catch (e: NullPointerException) {
         }
         setContentView(R.layout.activity_home)
+        findViewById<EditText>(R.id.authPin).setOnEditorActionListener {
+            v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                login()
+                true
+            }
+            else{
+                false
+            }
+        }
 
         val biometricPrompt =
             BiometricPrompt(activity, executor, object : BiometricPrompt.AuthenticationCallback() {
@@ -40,10 +57,12 @@ class Home : AppCompatActivity() {
                     errString: CharSequence
                 ) {
                     super.onAuthenticationError(errorCode, errString)
-                    if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) { // user clicked negative button
-//Toast.makeText(activity, "Operation Cancelled By User!", Toast.LENGTH_SHORT).show();
-                    } else { //Toast.makeText(activity, "Unknown Error!", Toast.LENGTH_SHORT).show();
-// Called when an unrecoverable error has been encountered and the operation is complete.
+                    runOnUiThread {
+                        if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) { // user clicked negative button
+                            Toast.makeText(applicationContext, "You can't skip this step", Toast.LENGTH_SHORT).show()
+                        } else {  // Called when an unrecoverable error has been encountered and the operation is complete.
+                            Toast.makeText(applicationContext, "Something unexpected happen, try again", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
 
@@ -67,6 +86,25 @@ class Home : AppCompatActivity() {
             .build()
 
         biometricPrompt.authenticate(promptInfo)
+    }
+
+    private fun login() {
+        val sharedPreference = SharedPreference(this)
+        val pass = sharedPreference.getLoginCredentials()
+        if(pass != "" && pass != null && pass != "null"){
+            if(pass == findViewById<EditText>(R.id.authPin).text.toString()){
+                Log.v("Test_Vimal", "Password Matched")
+                startActivity(Intent(applicationContext, dashboard::class.java))
+            }
+            else{
+                findViewById<EditText>(R.id.authPin).setText("")
+                Log.v("Test_Vimal", "Wrong password !!")
+            }
+        }
+        else{
+            Toast.makeText(applicationContext, "Please set the PIN before login !!", Toast.LENGTH_LONG).show()
+            Log.v("Test_Vimal", "Credentials doesn't exist")
+        }
     }
 
     private fun speakWishMessage(value: Boolean){

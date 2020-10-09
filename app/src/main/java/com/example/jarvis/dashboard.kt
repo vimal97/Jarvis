@@ -467,9 +467,13 @@ class dashboard : AppCompatActivity() {
                 ) {
                     super.onAuthenticationError(errorCode, errString)
                     if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) { // user clicked negative button
-//Toast.makeText(activity, "Operation Cancelled By User!", Toast.LENGTH_SHORT).show();
-                    } else { //Toast.makeText(activity, "Unknown Error!", Toast.LENGTH_SHORT).show();
-// Called when an unrecoverable error has been encountered and the operation is complete.
+                        runOnUiThread {
+                            Toast.makeText(applicationContext, "Please authenticate yourself to get in.", Toast.LENGTH_LONG).show()
+                        }
+                    } else { // Called when an unrecoverable error has been encountered and the operation is complete.
+                        runOnUiThread {
+                            Toast.makeText(applicationContext, "Something unexpected happen, try again", Toast.LENGTH_LONG).show()
+                         }
                     }
                 }
 
@@ -481,12 +485,15 @@ class dashboard : AppCompatActivity() {
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
                     //Called when a biometric is valid but not recognized.
+                    runOnUiThread {
+                        Toast.makeText(applicationContext, "I couldn't verify you !!", Toast.LENGTH_LONG).show()
+                    }
                 }
             })
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Let me first verify its you")
-            .setSubtitle("Swipe your finger across the sensor")
+            .setTitle("Let me verify its you")
+            .setSubtitle("Please scan your finger to go to the Secrets page")
             .setNegativeButtonText("Cancel")
             .build()
 

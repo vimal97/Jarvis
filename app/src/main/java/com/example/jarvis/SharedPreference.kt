@@ -105,4 +105,9 @@ class SharedPreference(val context: Context) {
         editor.remove(KEY_NAME)
         editor.commit()
     }
+
+    fun getLoginCredentials(): String? {
+        var sharedPref: SharedPreferences = context.getSharedPreferences("Jarvis",MODE_PRIVATE)
+        return sharedPref.getString("Jarvis_Pass", null)
+    }
 }
