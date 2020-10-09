@@ -19,9 +19,11 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -39,10 +41,17 @@ import java.io.IOException
 import java.nio.channels.FileChannel
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 
 @Suppress("DEPRECATION")
 class dashboard : AppCompatActivity() {
+
+    //fingerprint sensor
+    var executor: Executor =
+        Executors.newSingleThreadExecutor()
+    val activity: FragmentActivity = this
 
     private lateinit var fab: FloatingActionButton
     private lateinit var fab1: LinearLayout
@@ -450,6 +459,37 @@ class dashboard : AppCompatActivity() {
     }
 
     fun secretNotes(item: MenuItem) {
-        startActivity(Intent(applicationContext, SecretNotes::class.java))
+        val biometricPrompt =
+            BiometricPrompt(activity, executor, object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationError(
+                    errorCode: Int,
+                    errString: CharSequence
+                ) {
+                    super.onAuthenticationError(errorCode, errString)
+                    if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) { // user clicked negative button
+//Toast.makeText(activity, "Operation Cancelled By User!", Toast.LENGTH_SHORT).show();
+                    } else { //Toast.makeText(activity, "Unknown Error!", Toast.LENGTH_SHORT).show();
+// Called when an unrecoverable error has been encountered and the operation is complete.
+                    }
+                }
+
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    startActivity(Intent(applicationContext, SecretNotes::class.java))
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    //Called when a biometric is valid but not recognized.
+                }
+            })
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Let me first verify its you")
+            .setSubtitle("Swipe your finger across the sensor")
+            .setNegativeButtonText("Cancel")
+            .build()
+
+        biometricPrompt.authenticate(promptInfo)
     }
 }

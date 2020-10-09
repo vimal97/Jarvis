@@ -1,45 +1,9 @@
 package com.example.jarvis
 
-//import android.Manifest
-//import android.os.Bundle
-//import android.util.Log
-//import android.hardware.biometrics.BiometricPrompt
-//import android.os.Build
-//import androidx.annotation.RequiresApi
-//import androidx.appcompat.app.AppCompatActivity
-//import android.app.KeyguardManager
-//import android.content.Context
-//import android.content.Intent
-//import android.content.pm.PackageManager
-//import android.hardware.fingerprint.FingerprintManager
-//import android.security.keystore.KeyProperties
-//import android.widget.Toast
-//import androidx.core.app.ActivityCompat
-//import java.security.KeyStore
-//import java.security.NoSuchAlgorithmException
-//import java.security.NoSuchProviderException
-//import javax.crypto.KeyGenerator
-//import android.security.keystore.KeyGenParameterSpec
-//import java.security.cert.CertificateException
-//import java.security.InvalidAlgorithmParameterException
-//import java.io.IOException
-//import android.security.keystore.KeyPermanentlyInvalidatedException
-//import java.security.InvalidKeyException
-//import java.security.KeyStoreException
-//import java.security.UnrecoverableKeyException
-//import javax.crypto.NoSuchPaddingException
-//import javax.crypto.SecretKey
-//import javax.crypto.Cipher
-//import android.os.CancellationSignal
-
-//import android.R
-
-import android.accessibilityservice.GestureDescription
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
@@ -51,14 +15,6 @@ import java.util.concurrent.Executors
 
 
 class Home : AppCompatActivity() {
-
-//    private var fingerprintManager: FingerprintManager? = null
-//    private var keyguardManager: KeyguardManager? = null
-//    private var keyStore: KeyStore? = null
-//    private var keyGenerator: KeyGenerator? = null
-//    private val KEY_NAME = "example_key"
-//    private var cipher: Cipher? = null
-//    private var cryptoObject: FingerprintManager.CryptoObject? = null
 
     var executor: Executor =
         Executors.newSingleThreadExecutor()
