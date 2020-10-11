@@ -112,10 +112,12 @@ class Home : AppCompatActivity() {
         if(pass != "" && pass != null && pass != "null"){
             if(pass == findViewById<EditText>(R.id.authPin).text.toString()){
                 Log.v("Test_Vimal", "Password Matched")
+                speakWishMessage(true)
                 startActivity(Intent(applicationContext, dashboard::class.java))
             }
             else{
                 findViewById<EditText>(R.id.authPin).setText("")
+                speakWishMessage(false)
                 Log.v("Test_Vimal", "Wrong password !!")
             }
         }

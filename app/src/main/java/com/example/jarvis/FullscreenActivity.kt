@@ -62,9 +62,12 @@ class FullscreenActivity : AppCompatActivity() {
         //set the splash screen timeout
         Handler().postDelayed({
             //Play the login message
-            mediaPlayer = MediaPlayer.create(applicationContext,R.raw.login)
-            mediaPlayer.start()
-
+            val sharedPreference = SharedPreference(this)
+            val pass = sharedPreference.getLoginCredentials()
+            if(pass != null && pass != "" && pass != "null"){
+                mediaPlayer = MediaPlayer.create(applicationContext,R.raw.login)
+                mediaPlayer.start()
+            }
             //get to the login page
             startActivity(Intent(this@FullscreenActivity,Home::class.java))
             finish()
