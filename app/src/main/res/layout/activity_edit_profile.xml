@@ -21,6 +21,7 @@
 
     <EditText
         android:id="@+id/profileName"
+        android:hint="Enter you name"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -33,6 +34,7 @@
     <EditText
         android:id="@+id/profileEmail"
         android:layout_width="325dp"
+        android:hint="Enter your email"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:textColor="@color/white"
@@ -44,6 +46,7 @@
     <EditText
         android:id="@+id/profileCompany"
         android:layout_width="325dp"
+        android:hint="Enter company name"
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:textColor="@color/white"

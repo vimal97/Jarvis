@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -21,6 +20,7 @@ class EditProfile : AppCompatActivity() {
     val gson = Gson()
     private lateinit var profileImageURI: URI
 
+
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,28 +29,21 @@ class EditProfile : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //fetching the profile details
-        sharedPreference.pushProfileData("ProfileData", "")
+//        sharedPreference.pushProfileData("ProfileData", "")
         val fetchedProfile = sharedPreference.getProfileData("ProfileData")
         if(fetchedProfile != "null" && fetchedProfile != "" && fetchedProfile != null){
             Log.v("Test_Vimal",fetchedProfile)
             val temp = gson.fromJson<ProfileData>(fetchedProfile,ProfileData::class.java)
-            if(temp.name == ""){
-                findViewById<EditText>(R.id.profileName).hint = "Enter the name"
-                findViewById<EditText>(R.id.profileEmail).hint = "Enter your email Id"
-                findViewById<EditText>(R.id.profileCompany).hint = "Enter your company name"
-                findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.circleImageView).setImageURI(temp.profileImage)
-            }
-            else{
+            if(temp.name != ""){
                 findViewById<EditText>(R.id.profileName).setText(temp.name)
                 findViewById<EditText>(R.id.profileEmail).setText(temp.email)
                 findViewById<EditText>(R.id.profileCompany).setText(temp.company)
+                Log.v("Test_Vimal", "Converted Uri value is : " + Uri.parse(temp.profileImage))
+                findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.circleImageView).setImageURI(Uri.parse(temp.profileImage))
             }
         }
         else{
-            findViewById<EditText>(R.id.profileName).hint = "Enter the name"
-            findViewById<EditText>(R.id.profileEmail).hint = "Enter your email Id"
-            findViewById<EditText>(R.id.profileCompany).hint = "Enter your company name"
-            sharedPreference.pushProfileData("ProfileData", gson.toJson(ProfileData("", "", "", Uri.parse("http://stackoverflow.com"))))
+            sharedPreference.pushProfileData("ProfileData", gson.toJson(ProfileData("test", "test", "test", "")))
         }
     }
 
@@ -60,13 +53,11 @@ class EditProfile : AppCompatActivity() {
         val company = findViewById<EditText>(R.id.profileCompany).text.toString()
         val profileData = sharedPreference.getProfileData("ProfileData")
         Log.v("Test_Vimal", "Before updation : $profileData")
+
         var profileDataJson = Gson().fromJson<ProfileData>(profileData, ProfileData::class.java)
         profileDataJson.name = name
         profileDataJson.email = email
         profileDataJson.company = company
-        if(profileDataJson.profileImage == null){
-            profileDataJson.profileImage = Uri.parse("")
-        }
         sharedPreference.pushProfileData("ProfileData", gson.toJson(profileDataJson))
         Toast.makeText(applicationContext, "Profile Updated Succesfully",Toast.LENGTH_SHORT).show()
     }
@@ -74,7 +65,7 @@ class EditProfile : AppCompatActivity() {
     fun updateProfilePicture(view: View) {
         val intent = Intent()
         intent.setType("image/*")
-        intent.setAction(Intent.ACTION_GET_CONTENT)
+        intent.setAction(Intent.ACTION_OPEN_DOCUMENT)
         startActivityForResult(Intent.createChooser(intent, "Choose and image"), 123)
     }
 
@@ -89,7 +80,7 @@ class EditProfile : AppCompatActivity() {
             val gson = Gson()
             var profileDataJson = gson.fromJson<ProfileData>(profileData, ProfileData::class.java)
             if(profileUri != null){
-                profileDataJson.profileImage = profileUri
+                profileDataJson.profileImage = profileUri.toString()
             }
             Log.v("Test_Vimal", "Updated profile Image : $profileDataJson")
             sharedPreference.pushProfileData("ProfileData", gson.toJson(profileDataJson))

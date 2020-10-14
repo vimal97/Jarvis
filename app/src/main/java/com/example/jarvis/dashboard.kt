@@ -6,6 +6,7 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -33,6 +34,8 @@ import com.example.jarvis.ui.DailyNotificationReceiver
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_edit_profile.view.*
+import kotlinx.android.synthetic.main.nav_header_dashboard.view.*
 import org.json.JSONObject
 import java.io.File
 import java.io.FileInputStream
@@ -139,6 +142,18 @@ class dashboard : AppCompatActivity() {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         today = "$day/$month/$year"
+
+        //fetch user profile to show up in nav header
+        val sharedPreference = SharedPreference(this)
+        val userProfile = sharedPreference.getProfileData("ProfileData")
+        val userProfileJson = Gson().fromJson<ProfileData>(userProfile, ProfileData::class.java)
+        Log.v("Test_Vimal", "Fetched user profile is : $userProfile")
+        Log.v("Test_Vimal", "Uri parsed : " + Uri.parse(userProfileJson.profileImage))
+        val headerView: View = navView.getHeaderView(0)
+        headerView.name.text = userProfileJson.name
+        headerView.company.text = userProfileJson.company
+        headerView.email.text = userProfileJson.email
+        headerView.circleImageViewNav.setImageURI(Uri.parse(userProfileJson.profileImage))
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

@@ -9,6 +9,8 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Window
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.CheckBox
 import android.widget.EditText
@@ -44,9 +46,12 @@ class Home : AppCompatActivity() {
         //hiding title bar
         try {
             this.supportActionBar!!.hide()
-        } catch (e: NullPointerException) {
+        }
+        catch (e: NullPointerException) {
         }
         setContentView(R.layout.activity_home)
+        findViewById<EditText>(R.id.authPin).requestFocus()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         findViewById<EditText>(R.id.authPin).setOnEditorActionListener {
             v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE){
